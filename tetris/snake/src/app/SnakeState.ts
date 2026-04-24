@@ -13,13 +13,13 @@ export function SnakeState() {
     timeSpentSeconds: 0, // How long we play
     speedMs: 1000, // With which speed game works
     direction: 'right' as DirectionType, // Direction of our movement
-    fieldSize: [10, 10], // Size of game field
+    fieldSize: [10, 10] as PointType, // Size of game field
     headPosition: [2, 0] as PointType, // Position of main point
     tailPoints: [
       [1, 0],
       [0, 0],
     ] as PointType[],
-    targetPosition: [0, 0], // Position of target point
+    targetPosition: [0, 0] as PointType, // Position of target point
     gameStep: 'initialization' as GameStepType, // Current game step
     actions: [], // Queue of actions
   };

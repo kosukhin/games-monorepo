@@ -7,7 +7,7 @@ import pipe from 'lodash/fp/pipe';
 
 export function App(state: SnakeStateType) {
   if (state.gameStep !== 'running') {
-    return state;
+    return Action(state, { type: 'stop' });
   }
 
   console.log('APP: Game loop works!');
