@@ -1,9 +1,10 @@
-export type ActionNextType = (state: unknown, ...rest: unknown[]) => unknown;
+export type ActionNextType = (state: any, ...rest: any[]) => any;
 
-export type ActionFailType = (state: unknown, reason: unknown) => unknown;
+export type ActionFailType = (state: any, reason: any) => any;
 
 export type ActionType = {
-    details: unknown,
+    type: string,
+    args: unknown[],
     next?: ActionNextType,
     fail?: ActionNextType
 }
