@@ -5,6 +5,8 @@ export function Store(initialState: any) {
     })
 }
 
-export type StoreType = {
-    dispatch: (fn: Function) => any,
-};
+export type DispatchType = (fn: Function) => any;
+
+export type StoreWithDispatch = {
+    dispatch: DispatchType
+}

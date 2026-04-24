@@ -17,6 +17,8 @@ export function Action(state: StateWithActions, action: ActionType) {
     if (!state.actions) {
         state.actions = []
     }
-    state.actions.push(action)
-    return state;
+    return {
+        ...state,
+        actions: [...state.actions, action]
+    };
 }

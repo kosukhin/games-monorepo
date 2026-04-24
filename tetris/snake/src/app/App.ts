@@ -10,7 +10,7 @@ export function App(state: SnakeStateType) {
 
     return Action(state, {
         type: 'timeout',
-        args: [state.score],
+        args: [state.speedMs],
         next: App
     })
 }
