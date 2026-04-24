@@ -9,6 +9,9 @@ export function ActionHandler(dispatch: DispatchType, handlersConfig: StoreHandl
   const handlers = handlersConfig.map(([type, handler]) => ({ type, handler }));
   const handlerGroups = groupBy(handlers, 'type');
   return async (state: StateWithActions) => {
+    if (state === undefined) {
+      console.warn('WARNING! state is undefined, possibly you returned undefined in you logic!');
+    }
     if (state.actions.length === 0) {
       return;
     }

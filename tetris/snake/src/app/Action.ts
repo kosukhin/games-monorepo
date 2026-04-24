@@ -14,11 +14,8 @@ export type StateWithActions = {
 };
 
 export function Action(state: StateWithActions, action: ActionType | ActionType[]) {
-  if (!state.actions) {
-    state.actions = [];
-  }
   return {
     ...state,
-    actions: [...state.actions, action],
+    actions: [...(state.actions ?? []), action],
   };
 }

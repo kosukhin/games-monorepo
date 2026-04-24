@@ -7,7 +7,7 @@ export function ControlsHandler() {
   const keyPressHandler: ((...args: any[]) => void)[] = [];
   const startHandler = (action: ActionType, dispatch: DispatchType) => {
     const appHandler = action.args?.[0] as any;
-    invariant(typeof(appHandler), 'ControlsHandler: appHandler must be function');
+    invariant(typeof appHandler, 'ControlsHandler: appHandler must be function');
     const handler = (e: KeyboardEvent) => {
       dispatch(partialRight(appHandler, e));
     };

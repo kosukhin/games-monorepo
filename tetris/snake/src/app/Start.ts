@@ -2,6 +2,7 @@ import { Action } from './Action';
 import { App } from './App';
 import { KeyPress } from './KeyPress';
 import type { SnakeStateType } from './SnakeState';
+import { Timer } from './Timer';
 
 export function Start(state: SnakeStateType) {
   if (state.gameStep === 'running') {
@@ -20,11 +21,15 @@ export function Start(state: SnakeStateType) {
     [
       {
         type: 'start',
-        args: [KeyPress]
+        args: [KeyPress],
       },
       {
         type: 'timeout',
         next: App,
+      },
+      {
+        type: 'timeout',
+        next: Timer,
       },
     ],
   );
