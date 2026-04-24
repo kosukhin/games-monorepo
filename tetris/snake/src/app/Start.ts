@@ -10,6 +10,7 @@ export function Start(state: SnakeStateType) {
     });
   }
 
+  console.log('Start');
   return Action(
     {
       ...state,
@@ -17,7 +18,6 @@ export function Start(state: SnakeStateType) {
     } as SnakeStateType,
     {
       type: 'timeout',
-      args: [state.speedMs],
       next: App,
     },
   );

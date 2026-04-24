@@ -4,7 +4,7 @@ export type ActionFailType = (state: any, reason: any) => any;
 
 export type ActionType = {
   type: string;
-  args: unknown[];
+  args?: unknown[];
   next?: ActionNextType;
   fail?: ActionNextType;
 };

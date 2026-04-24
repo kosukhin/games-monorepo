@@ -1,9 +1,8 @@
 import type { ActionType } from '../app/Action';
-import type { DispatchType } from './Store';
 
-export function NotifyHandler(_: DispatchType, action: ActionType) {
+export function NotifyHandler(action: ActionType) {
   return new Promise<void>(resolve => {
-    console.log('Notification', ...action.args);
+    console.log('Notification', ...(action.args ?? []));
     resolve();
   });
 }

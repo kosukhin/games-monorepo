@@ -6,7 +6,7 @@ export function App(state: SnakeStateType) {
     return state;
   }
 
-  console.log('Game loop works!');
+  console.log('APP: Game loop works!');
 
   return Action(state, {
     type: 'timeout',
