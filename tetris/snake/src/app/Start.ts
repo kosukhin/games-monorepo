@@ -1,5 +1,6 @@
 import { Action } from './Action';
 import { App } from './App';
+import { KeyPress } from './KeyPress';
 import type { SnakeStateType } from './SnakeState';
 
 export function Start(state: SnakeStateType) {
@@ -19,6 +20,7 @@ export function Start(state: SnakeStateType) {
     [
       {
         type: 'start',
+        args: [KeyPress]
       },
       {
         type: 'timeout',
