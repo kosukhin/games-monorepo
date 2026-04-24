@@ -10,10 +10,10 @@ export type ActionType = {
 };
 
 export type StateWithActions = {
-  actions: ActionType[];
+  actions: (ActionType | ActionType[])[];
 };
 
-export function Action(state: StateWithActions, action: ActionType) {
+export function Action(state: StateWithActions, action: ActionType | ActionType[]) {
   if (!state.actions) {
     state.actions = [];
   }

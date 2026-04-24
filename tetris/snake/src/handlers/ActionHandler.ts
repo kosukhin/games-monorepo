@@ -18,18 +18,26 @@ export function ActionHandler(dispatch: DispatchType, handlers: StoreHandlerProv
       ...s,
       actions: [],
     }));
-    const actions = state.actions ? [...state.actions] : [];
-    while (actions.length > 0) {
-      const action = actions.shift() as ActionType;
-      const handlersForType = handlerGroups[action.type];
-      if (handlersForType?.length) {
-        for (const handler of handlersForType) {
-          await handler.handler(action, dispatch);
-        }
+    const stateActions = state.actions ? [...state.actions] : [];
+    const unhandledActionTypes: string[] = [];
+    while (stateActions.length > 0) {
+      let actions = stateActions.shift() ?? [];
+      if (!Array.isArray(actions)) {
+        actions = [actions];
       }
+      await Promise.all(actions.map(async (action) => {
+        const handlersForType = handlerGroups[action.type];
+        if (handlersForType?.length) {
+          for (const handler of handlersForType) {
+            await handler.handler(action, dispatch);
+          }
+        } else {
+            unhandledActionTypes.push(action.type);
+        }
+      }));
     }
-    if (actions.length) {
-      const unhandledTypes = uniq(actions.map(action => action.type));
+    if (unhandledActionTypes.length) {
+      const unhandledTypes = uniq(unhandledActionTypes);
       console.warn('Unhandled actions in store!', unhandledTypes);
     }
   };

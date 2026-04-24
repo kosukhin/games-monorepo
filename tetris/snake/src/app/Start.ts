@@ -16,9 +16,14 @@ export function Start(state: SnakeStateType) {
       ...state,
       gameStep: 'running',
     } as SnakeStateType,
-    {
-      type: 'timeout',
-      next: App,
-    },
+    [
+      {
+        type: 'start',
+      },
+      {
+        type: 'timeout',
+        next: App,
+      },
+    ],
   );
 }
