@@ -1,3 +1,4 @@
+import { Acceleration } from './Acceleration';
 import { Action } from './Action';
 import { Collision } from './Collision';
 import { MoveHead } from './MoveHead';
@@ -15,7 +16,7 @@ export function Main(state: SnakeStateType) {
 
   return Action(nextStep(state), {
     type: 'timeout',
-    args: [state.get('speedMs')],
+    args: [Acceleration(state, state.get('speedMs'))],
     next: Main,
   });
 }

@@ -1,5 +1,5 @@
 import invariant from 'tiny-invariant';
-import type { SnakeStateDataType, SnakeStateType } from '../app/SnakeState';
+import type { SnakeStateType } from '../app/SnakeState';
 
 export class CanvasRenderer {
   private canvas: HTMLCanvasElement;
@@ -26,6 +26,16 @@ export class CanvasRenderer {
       ...state.get('tailPoints'),
     ];
 
+    const [countX, countY] = state.get('fieldSize');
+    Array.from(range(countX)).forEach(x => {
+      Array.from(range(countY)).forEach(y => {
+        const posX = x * this.cellSize;
+        const posY = y * this.cellSize;
+        this.ctx.fillStyle = '#aaaaaa'; // Цвет подсветки
+        this.ctx.fillRect(posX, posY, this.cellSize, this.cellSize);
+      });
+    });
+
     points.forEach(([x, y]) => {
       const posX = x * this.cellSize;
       const posY = y * this.cellSize;
@@ -34,5 +44,11 @@ export class CanvasRenderer {
       this.ctx.strokeStyle = '#ccc';
       this.ctx.strokeRect(posX, posY, this.cellSize, this.cellSize);
     });
+  }
+}
+
+function* range(to: number) {
+  for (let i = 0; i <= to - 1; i++) {
+    yield i;
   }
 }

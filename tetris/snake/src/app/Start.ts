@@ -3,28 +3,45 @@ import { Main } from './Main';
 import { KeyPress } from './KeyPress';
 import type { SnakeStateType } from './SnakeState';
 import { Timer } from './Timer';
+import { Target } from './Target';
 
 export function Start(state: SnakeStateType) {
-  if (state.get('gameStep') === 'running') {
+  const gameStep = state.get('gameStep');
+  if (gameStep === 'game-over') {
     return Action(state, {
       type: 'notify',
-      args: ['Game already runs!'],
+      args: ['Game is over!'],
+    });
+  }
+
+  if (gameStep !== 'initialization' && gameStep !== 'pause') {
+    return Action(state, {
+      type: 'notify',
+      args: ['Game was started already!'],
     });
   }
 
   console.log('Start');
-  return Action(state.set('gameStep', 'running'), [
-    {
-      type: 'start',
-      args: [KeyPress],
-    },
-    {
-      type: 'timeout',
-      next: Main,
-    },
-    {
-      type: 'timeout',
-      next: Timer,
-    },
-  ]);
+  return Action(
+    state.withMutations(s => {
+      s.set('gameStep', 'running');
+      if (gameStep !== 'pause') {
+        s.set('targetPosition', Target(s.get('fieldSize')));
+      }
+    }),
+    [
+      {
+        type: 'start',
+        args: [KeyPress],
+      },
+      {
+        type: 'timeout',
+        next: Main,
+      },
+      {
+        type: 'timeout',
+        next: Timer,
+      },
+    ],
+  );
 }

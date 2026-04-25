@@ -7,7 +7,9 @@ import { NotifyHandler } from './handlers/NotifyHandler';
 import { TimeoutHandler } from './handlers/TimeoutHandler';
 
 export const store = createStore<{ data: SnakeStateType }>(
-  devtools(() => ({ data: SnakeState() })) as any,
+  devtools(() => ({
+    data: SnakeState(),
+  })) as any,
 );
 export const dispatchStore = (fn: Function) => {
   store.setState((state: any) => ({ data: fn(state.data) }));
