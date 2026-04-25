@@ -1,8 +1,8 @@
-import type { SnakeStateType } from './SnakeState';
+import type { PointType, SnakeStateType } from './SnakeState';
 
 export function MoveHead(state: SnakeStateType) {
-  const headPosition = [...state.headPosition];
-  switch (state.direction) {
+  const headPosition: PointType = [...state.get('headPosition')];
+  switch (state.get('direction')) {
     case 'top':
       headPosition[1] -= 1;
       break;
@@ -16,8 +16,5 @@ export function MoveHead(state: SnakeStateType) {
       headPosition[0] -= 1;
       break;
   }
-  return {
-    ...state,
-    headPosition,
-  };
+  return state.set('headPosition', headPosition);
 }

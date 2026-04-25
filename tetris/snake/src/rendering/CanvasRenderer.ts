@@ -1,5 +1,5 @@
 import invariant from 'tiny-invariant';
-import type { SnakeStateType } from '../app/SnakeState';
+import type { SnakeStateDataType, SnakeStateType } from '../app/SnakeState';
 
 export class CanvasRenderer {
   private canvas: HTMLCanvasElement;
@@ -20,7 +20,11 @@ export class CanvasRenderer {
   public tick(state: SnakeStateType) {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-    const points = [state.targetPosition, state.headPosition, ...state.tailPoints];
+    const points = [
+      state.get('targetPosition'),
+      state.get('headPosition'),
+      ...state.get('tailPoints'),
+    ];
 
     points.forEach(([x, y]) => {
       const posX = x * this.cellSize;

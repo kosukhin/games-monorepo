@@ -2,15 +2,13 @@ import type { SnakeStateType } from './SnakeState';
 
 export function MoveTail(state: SnakeStateType) {
   const tailPoints: [number, number][] = [];
-  Array.from(state.tailPoints.keys()).forEach(index => {
+  const stateTailPoints = state.get('tailPoints');
+  Array.from(state.get('tailPoints').keys()).forEach(index => {
     if (index === 0) {
-      tailPoints.push([...state.headPosition]);
+      tailPoints.push([...state.get('headPosition')]);
       return;
     }
-    tailPoints.push([...state.tailPoints[index - 1]]);
+    tailPoints.push([...stateTailPoints[index - 1]]);
   });
-  return {
-    ...state,
-    tailPoints,
-  };
+  return state.set('tailPoints', tailPoints);
 }

@@ -1,3 +1,7 @@
 body {
-  background: #333;
+  background: #f1f1f1;
+}
+
+#canvas {
+    background: #ccc;
 }
