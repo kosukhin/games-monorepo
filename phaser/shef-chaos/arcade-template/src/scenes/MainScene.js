@@ -6,6 +6,7 @@ export default class MainScene extends Phaser.Scene {
   }
 
   create() {
+    this.game.events.off('blur');
     // World size
     const w = this.sys.game.config.width;
     const h = this.sys.game.config.height;
