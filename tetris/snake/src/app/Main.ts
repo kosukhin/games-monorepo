@@ -1,6 +1,7 @@
 import { Acceleration } from './Acceleration';
 import { Action } from './Action';
 import { Collision } from './Collision';
+import { Level } from './Level';
 import { MoveHead } from './MoveHead';
 import { MoveTail } from './MoveTail';
 import type { SnakeStateType } from './SnakeState';
@@ -12,7 +13,7 @@ export function Main(state: SnakeStateType) {
   }
 
   console.log('APP: Game loop works!');
-  const nextStep = pipe(MoveTail, MoveHead, Collision);
+  const nextStep = pipe(MoveTail, MoveHead, Collision, Level);
 
   return Action(nextStep(state), {
     type: 'timeout',

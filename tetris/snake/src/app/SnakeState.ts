@@ -12,6 +12,7 @@ export type PointType = [number, number];
  */
 export function SnakeState() {
   return Map({
+    level: 0,
     score: 0, // How long is our tail
     timeSpentSeconds: 0, // How long we play
     lastDirectionChangeTime: 0, // Timestamp of last direction change

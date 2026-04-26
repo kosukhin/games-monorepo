@@ -1,5 +1,5 @@
 import invariant from 'tiny-invariant';
-import type { SnakeStateType } from '../app/SnakeState';
+import type { PointType, SnakeStateType } from '../app/SnakeState';
 
 export class CanvasRenderer {
   private canvas: HTMLCanvasElement;
@@ -20,10 +20,12 @@ export class CanvasRenderer {
   public tick(state: SnakeStateType) {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-    const points = [
-      state.get('targetPosition'),
-      state.get('headPosition'),
-      ...state.get('tailPoints'),
+    const targetColor = '#f00';
+    const snakeColor = '#4CAF50';
+    const points: [string, PointType][] = [
+      [targetColor, state.get('targetPosition')],
+      [snakeColor, state.get('headPosition')],
+      ...state.get('tailPoints').map(t => [snakeColor, t] as [string, PointType]),
     ];
 
     const [countX, countY] = state.get('fieldSize');
@@ -36,10 +38,11 @@ export class CanvasRenderer {
       });
     });
 
-    points.forEach(([x, y]) => {
+    points.forEach(([color, point]) => {
+      const [x, y] = point;
       const posX = x * this.cellSize;
       const posY = y * this.cellSize;
-      this.ctx.fillStyle = '#4CAF50'; // Цвет подсветки
+      this.ctx.fillStyle = color; // Цвет подсветки
       this.ctx.fillRect(posX, posY, this.cellSize, this.cellSize);
       this.ctx.strokeStyle = '#ccc';
       this.ctx.strokeRect(posX, posY, this.cellSize, this.cellSize);

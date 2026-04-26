@@ -6,7 +6,10 @@ export function Collision(state: SnakeStateType) {
   if (pointsCollision(state.get('targetPosition'), head)) {
     return state.withMutations(theState => {
       theState.set('score', theState.get('score') + 1);
-      theState.set('targetPosition', Target(theState.get('fieldSize')));
+      theState.set(
+        'targetPosition',
+        Target(theState.get('fieldSize'), theState.get('headPosition'), theState.get('tailPoints')),
+      );
       const tailPoints = theState.get('tailPoints');
       theState.set('tailPoints', [...tailPoints, [...(tailPoints.at(-1) ?? [0, 0])]]);
       const speed = theState.get('speedMs');

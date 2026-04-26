@@ -7,7 +7,7 @@ import { Target } from './Target';
 
 export function Start(state: SnakeStateType) {
   const gameStep = state.get('gameStep');
-  if (gameStep === 'game-over') {
+  if (gameStep === 'game-over' || state.get('gameOverReason')) {
     return Action(state, {
       type: 'notify',
       args: ['Game is over!'],
@@ -26,7 +26,10 @@ export function Start(state: SnakeStateType) {
     state.withMutations(s => {
       s.set('gameStep', 'running');
       if (gameStep !== 'pause') {
-        s.set('targetPosition', Target(s.get('fieldSize')));
+        s.set(
+          'targetPosition',
+          Target(s.get('fieldSize'), s.get('headPosition'), s.get('tailPoints')),
+        );
       }
     }),
     [
