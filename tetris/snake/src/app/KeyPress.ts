@@ -1,12 +1,5 @@
 import type { DirectionType, SnakeStateType } from './SnakeState';
 
-const directionToKeyMap: Record<string, DirectionType> = {
-  w: 'top',
-  d: 'right',
-  s: 'bottom',
-  a: 'left',
-};
-
 const backsides = {
   top: 'bottom',
   bottom: 'top',
@@ -14,13 +7,12 @@ const backsides = {
   right: 'left',
 };
 
-export function KeyPress(state: SnakeStateType, e: KeyboardEvent) {
-  const direction = directionToKeyMap[e.key];
+export function KeyPress(state: SnakeStateType, direction: DirectionType) {
   const stateDirection = state.get('direction');
   const speed = state.get('speedMs');
   const now = Date.now();
   const lastChange = state.get('lastDirectionChangeTime');
-  const earlyChange = now - lastChange < speed;
+  const earlyChange = (now - lastChange) < speed - 1;
 
   if (!earlyChange && direction === stateDirection) {
     return state.set('accelerationTime', Date.now());

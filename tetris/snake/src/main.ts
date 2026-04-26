@@ -1,4 +1,5 @@
 import { Pause } from './app/Pause';
+import { Reset } from './app/Reset';
 import { Start } from './app/Start';
 import { CanvasRenderer } from './rendering/CanvasRenderer';
 import { dispatchStore, store } from './store';
@@ -9,6 +10,9 @@ document.querySelector('#start')?.addEventListener('click', () => {
 });
 document.querySelector('#pause')?.addEventListener('click', () => {
   dispatchStore(Pause);
+});
+document.querySelector('#reset')?.addEventListener('click', () => {
+  dispatchStore(Reset);
 });
 const $gameTime = document.querySelector('#game-time') as Element;
 const $direction = document.querySelector('#direction') as Element;
