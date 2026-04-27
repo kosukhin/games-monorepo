@@ -1,6 +1,7 @@
 {
     "conventionalCommits.scopes": [
         "snake",
-        "common"
+        "common",
+        "sheff-chaos"
     ]
 }
