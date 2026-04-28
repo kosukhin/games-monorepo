@@ -1,5 +1,5 @@
 import { Map } from 'immutable';
-import type { ActionsType } from './Action';
+import type { CommandType } from 'silentium-loop';
 
 export type DirectionType = 'top' | 'right' | 'bottom' | 'left';
 
@@ -26,7 +26,7 @@ export function SnakeState() {
     ] as PointType[],
     targetPosition: [0, 0] as PointType, // Position of target point
     gameStep: 'initialization' as GameStepType, // Current game step
-    actions: [] as ActionsType, // Queue of actions
+    commands: [] as CommandType[],
     gameOverReason: '',
     accelerationTime: 0, // Timestamp of last acceleration
   });

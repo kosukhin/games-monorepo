@@ -1,8 +1,7 @@
 import { partialRight } from 'lodash-es';
-import type { ActionType } from '../app/Action';
-import type { DispatchType } from './Store';
 import invariant from 'tiny-invariant';
 import type { DirectionType } from '../app/SnakeState';
+import type { CommandType, DispatchType } from 'silentium-loop';
 
 const directionToKeyMap: Record<string, DirectionType> = {
   KeyW: 'top',
@@ -11,9 +10,9 @@ const directionToKeyMap: Record<string, DirectionType> = {
   KeyA: 'left',
 };
 
-export function ControlsHandler() {
+export function ControlAction() {
   const keyPressHandler: ((...args: any[]) => void)[] = [];
-  const startHandler = (action: ActionType, dispatch: DispatchType) => {
+  const startHandler = (action: CommandType, dispatch: DispatchType) => {
     const appHandler = action.args?.[0] as any;
     invariant(typeof appHandler, 'ControlsHandler: appHandler must be function');
     const handler = (e: KeyboardEvent) => {

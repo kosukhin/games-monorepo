@@ -1,7 +1,6 @@
-import type { ActionType } from '../app/Action';
-import type { DispatchType } from './Store';
+import type { CommandType, DispatchType } from 'silentium-loop';
 
-export function TimeoutHandler(action: ActionType, dispatch: DispatchType) {
+export function TimeoutAction(action: CommandType, dispatch: DispatchType) {
   const delay = Number(action.args?.[0] ?? 0);
   return new Promise<void>(resolve => {
     setTimeout(() => {

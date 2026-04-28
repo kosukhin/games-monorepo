@@ -1,9 +1,9 @@
-import { Action } from './Action';
+import { Command } from '../store';
 import type { SnakeStateType } from './SnakeState';
 
 export function Pause(state: SnakeStateType) {
   console.log('Paused');
-  return Action(state.set('gameStep', 'pause'), {
+  return Command(state.set('gameStep', 'pause'), {
     type: 'stop',
   });
 }

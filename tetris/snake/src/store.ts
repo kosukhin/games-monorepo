@@ -1,10 +1,10 @@
+import { Action, createCommand, type CommandType } from 'silentium-loop';
 import { devtools } from 'zustand/middleware';
 import { createStore } from 'zustand/vanilla';
 import { SnakeState, type SnakeStateType } from './app/SnakeState';
-import { ActionHandler } from './handlers/ActionHandler';
-import { ControlsHandler } from './handlers/ControlsHandler';
-import { NotifyHandler } from './handlers/NotifyHandler';
-import { TimeoutHandler } from './handlers/TimeoutHandler';
+import { ControlAction } from './handlers/ControlAction';
+import { NotifyAction } from './handlers/NotifyAction';
+import { TimeoutAction } from './handlers/TimeoutAction';
 
 export const store = createStore<{ data: SnakeStateType }>(
   devtools(() => ({
@@ -15,14 +15,22 @@ export const dispatchStore = (fn: Function) => {
   store.setState((state: any) => ({ data: fn(state.data) }));
 };
 
-const controlsHandler = ControlsHandler();
-const actionsListener = ActionHandler(dispatchStore, [
-  ['start', controlsHandler.startHandler],
-  ['stop', controlsHandler.stopHandler],
-  ['timeout', TimeoutHandler],
-  ['notify', NotifyHandler],
-]);
+export const { Command, BatchCommand } = createCommand(
+  (state: any, command: CommandType) => {
+    return state.update('commands', (prev: CommandType[]) => [...prev, command]);
+  },
+);
 
-store.subscribe(state => {
-  actionsListener(state.data as any);
-});
+const controlsHandler = ControlAction();
+const actionsListener = Action(
+  dispatchStore,
+  [
+    ['start', controlsHandler.startHandler],
+    ['stop', controlsHandler.stopHandler],
+    ['timeout', TimeoutAction],
+    ['notify', NotifyAction],
+  ],
+  () => store.getState().data.get('commands'),
+);
+
+store.subscribe(actionsListener);

@@ -1,6 +1,6 @@
-import type { ActionType } from '../app/Action';
+import type { CommandType } from "silentium-loop";
 
-export function NotifyHandler(action: ActionType) {
+export function NotifyAction(action: CommandType) {
   return new Promise<void>(resolve => {
     console.log('Notification', ...(action.args ?? []));
     resolve();

@@ -1,11 +1,11 @@
-import { Action } from './Action';
+import { Command } from '../store';
 import type { SnakeStateType } from './SnakeState';
 
 export function Timer(state: SnakeStateType) {
   if (state.get('gameStep') !== 'running') {
     return state;
   }
-  return Action(
+  return Command(
     state.update('timeSpentSeconds', t => t + 1),
     {
       type: 'timeout',

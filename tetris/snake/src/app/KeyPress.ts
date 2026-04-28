@@ -12,7 +12,7 @@ export function KeyPress(state: SnakeStateType, direction: DirectionType) {
   const speed = state.get('speedMs');
   const now = Date.now();
   const lastChange = state.get('lastDirectionChangeTime');
-  const earlyChange = (now - lastChange) < speed - 1;
+  const earlyChange = now - lastChange < speed - 1;
 
   if (!earlyChange && direction === stateDirection) {
     return state.set('accelerationTime', Date.now());
