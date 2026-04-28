@@ -5,6 +5,10 @@ export default class MainScene extends Phaser.Scene {
     super({ key: 'MainScene' });
   }
 
+  preload() {
+    this.load.image('playerSkin', 'assets/player-stand.png');
+  }
+
   create() {
     // World dimensions larger than viewport for camera roaming
     const worldW = 2400;
@@ -17,7 +21,7 @@ export default class MainScene extends Phaser.Scene {
     this.physics.add.existing(this.ground, true);
 
     // Player square
-    this.player = this.add.rectangle(100, worldH - 60, 40, 40, 0xff0000);
+    this.player = this.add.image(100, worldH-60, 'playerSkin');
     this.physics.add.existing(this.player);
     this.player.body.setCollideWorldBounds(true);
 
