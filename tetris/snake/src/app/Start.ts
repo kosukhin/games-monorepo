@@ -3,7 +3,7 @@ import { KeyPress } from './KeyPress';
 import type { SnakeStateType } from './SnakeState';
 import { Timer } from './Timer';
 import { Target } from './Target';
-import { BatchCommand, Command } from '../store';
+import { BatchCommand, Command } from 'silentium-loop';
 
 export function Start(state: SnakeStateType) {
   const gameStep = state.get('gameStep');

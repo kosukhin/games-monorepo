@@ -2,17 +2,17 @@ import { Pause } from './app/Pause';
 import { Reset } from './app/Reset';
 import { Start } from './app/Start';
 import { CanvasRenderer } from './rendering/CanvasRenderer';
-import { dispatchStore, store } from './store';
+import { dispatch, store } from './store';
 import './style.css';
 
 document.querySelector('#start')?.addEventListener('click', () => {
-  dispatchStore(Start);
+  dispatch(Start);
 });
 document.querySelector('#pause')?.addEventListener('click', () => {
-  dispatchStore(Pause);
+  dispatch(Pause);
 });
 document.querySelector('#reset')?.addEventListener('click', () => {
-  dispatchStore(Reset);
+  dispatch(Reset);
 });
 const $gameTime = document.querySelector('#game-time') as Element;
 const $direction = document.querySelector('#direction') as Element;

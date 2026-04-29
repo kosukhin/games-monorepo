@@ -1,11 +1,11 @@
-import { Command } from '../store';
+import { Command } from 'silentium-loop';
 import { Acceleration } from './Acceleration';
 import { Collision } from './Collision';
 import { Level } from './Level';
 import { MoveHead } from './MoveHead';
 import { MoveTail } from './MoveTail';
 import type { SnakeStateType } from './SnakeState';
-import pipe from 'lodash/fp/pipe';
+import { pipe } from 'lodash/fp';
 
 export function Main(state: SnakeStateType) {
   if (state.get('gameStep') !== 'running') {

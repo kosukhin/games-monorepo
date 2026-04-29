@@ -1,4 +1,4 @@
-import { Action, createCommand, type CommandType } from 'silentium-loop';
+import { Actions } from 'silentium-loop';
 import { devtools } from 'zustand/middleware';
 import { createStore } from 'zustand/vanilla';
 import { SnakeState, type SnakeStateType } from './app/SnakeState';
@@ -11,28 +11,14 @@ export const store = createStore<{ data: SnakeStateType }>(
     data: SnakeState(),
   })) as any,
 );
-export const dispatchStore = (fn: Function) => {
-  store.setState((state: any) => {
-    const newData = fn(state.data);
-    return { data: newData };
-  });
-};
-
-export const { Command, BatchCommand } = createCommand((state: any, command: CommandType) => {
-  return state.update('commands', (prev: CommandType[]) => [...prev, command]);
-});
 
 const controlsHandler = ControlAction();
-const actionsListener = Action(
-  dispatchStore,
+export const dispatch = Actions(
+  (fn: Function) => store.setState(s => ({ data: fn(s.data) })),
   [
     ['start', controlsHandler.startHandler],
     ['stop', controlsHandler.stopHandler],
     ['timeout', TimeoutAction],
     ['notify', NotifyAction],
   ],
-  () => store.getState().data.get('commands'),
-  (state: SnakeStateType) => state.set('commands', []),
 );
-
-store.subscribe(actionsListener);

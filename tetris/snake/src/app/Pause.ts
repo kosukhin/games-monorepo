@@ -1,4 +1,4 @@
-import { Command } from '../store';
+import { Command } from 'silentium-loop';
 import type { SnakeStateType } from './SnakeState';
 
 export function Pause(state: SnakeStateType) {
