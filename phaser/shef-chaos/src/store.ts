@@ -1,13 +1,16 @@
 import { LayerState, LayerStateType } from "@/app/LayerState";
 import { createStore } from "zustand/vanilla";
 import { devtools } from "zustand/middleware";
+import { immer } from "zustand/middleware/immer";
 import { Actions } from "silentium-loop";
 import { TimeoutAction } from "@/actions/TimeoutAction";
 
 export const store = createStore<{ data: LayerStateType }>(
-  devtools(() => ({
-    data: LayerState(),
-  })) as any,
+  devtools(
+    immer(() => ({
+      data: LayerState(),
+    })),
+  ) as any,
 );
 
 export const dispatch = Actions(

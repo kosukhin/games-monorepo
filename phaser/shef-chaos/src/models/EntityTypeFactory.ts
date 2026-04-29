@@ -1,24 +1,29 @@
 import { EntityType, EntityTypes } from "@/app/LayerState";
 import { Box } from "@/models/Box";
+import { Ground } from "@/models/Ground";
 import { Player } from "@/models/Player";
+import MainScene from "@/scenes/MainScene";
 import invariant from "tiny-invariant";
 
 export type PhaserEntityType = {
+  type: EntityTypes;
   preload?: () => void;
   create?: () => void;
   update?: () => void;
 };
 
-const typeToFactory: Record<EntityTypes, (e: EntityType) => PhaserEntityType> =
-  {
-    box: Box,
-    player: Player,
-  };
+type EntityFactory = (e: EntityType, scene: MainScene) => PhaserEntityType;
 
-export function EntityTypeFactory(entity: EntityType) {
+const typeToFactory: Record<EntityTypes, EntityFactory> = {
+  box: Box,
+  player: Player,
+  ground: Ground,
+};
+
+export function EntityTypeFactory(entity: EntityType, scene: MainScene) {
   invariant(
     typeToFactory[entity.type] !== undefined,
     `Entity with type ${entity.type} unregistered!`,
   );
-  return typeToFactory[entity.type](entity);
+  return typeToFactory[entity.type](entity, scene);
 }
