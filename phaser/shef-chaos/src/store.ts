@@ -1,6 +1,6 @@
 import { LayerState, LayerStateType } from "@/app/LayerState";
-import { createStore } from 'zustand/vanilla';
-import { devtools } from 'zustand/middleware';
+import { createStore } from "zustand/vanilla";
+import { devtools } from "zustand/middleware";
 import { Actions } from "silentium-loop";
 import { TimeoutAction } from "@/actions/TimeoutAction";
 
@@ -11,8 +11,6 @@ export const store = createStore<{ data: LayerStateType }>(
 );
 
 export const dispatch = Actions(
-  (fn: Function) => store.setState(s => ({ data: fn(s.data) })),
-  [
-    ['timeout', TimeoutAction],
-  ],
+  (fn) => store.setState((s) => ({ data: fn(s.data) })),
+  [["timeout", TimeoutAction]],
 );

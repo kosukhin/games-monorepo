@@ -1,15 +1,15 @@
-import Phaser from 'phaser';
+import Phaser from "phaser";
 
 export default class MainScene extends Phaser.Scene {
-  constructor() {
-    super({ key: 'MainScene' });
+  public constructor() {
+    super({ key: "MainScene" });
   }
 
-  preload() {
-    this.load.image('playerSkin', 'assets/player-stand.png');
+  public preload() {
+    this.load.image("playerSkin", "assets/player-stand.png");
   }
 
-  create() {
+  public create() {
     // World dimensions larger than viewport for camera roaming
     const worldW = 2400;
     const worldH = 600;
@@ -17,11 +17,17 @@ export default class MainScene extends Phaser.Scene {
     this.cameras.main.setBounds(0, 0, worldW, worldH);
 
     // Ground platform
-    this.ground = this.add.rectangle(worldW / 2, worldH - 20, worldW, 40, 0x2ecc71);
+    this.ground = this.add.rectangle(
+      worldW / 2,
+      worldH - 20,
+      worldW,
+      40,
+      0x2ecc71,
+    );
     this.physics.add.existing(this.ground, true);
 
     // Player square
-    this.player = this.add.image(100, worldH-60, 'playerSkin');
+    this.player = this.add.image(100, worldH - 60, "playerSkin");
     this.physics.add.existing(this.player);
     this.player.body.setCollideWorldBounds(true);
 
@@ -45,7 +51,7 @@ export default class MainScene extends Phaser.Scene {
     this.cursors = this.input.keyboard.createCursorKeys();
   }
 
-  update() {
+  public update() {
     if (!this.player || !this.cursors) return;
     // Move left/right
     if (this.cursors.left.isDown) {
@@ -57,7 +63,8 @@ export default class MainScene extends Phaser.Scene {
     }
 
     // Jump if on ground
-    const onGround = this.player.body.blocked.down || this.player.body.touching.down;
+    const onGround =
+      this.player.body.blocked.down || this.player.body.touching.down;
     if (this.cursors.up.isDown && onGround) {
       this.player.body.setVelocityY(-300);
     }

@@ -1,16 +1,16 @@
-import Phaser from 'phaser';
+import Phaser from "phaser";
 
 export default class BootScene extends Phaser.Scene {
-  constructor() {
-    super({ key: 'BootScene' });
+  public constructor() {
+    super({ key: "BootScene" });
   }
 
-  preload() {
+  public preload() {
     // Load minimal assets for splash or loading, if any
   }
 
-  create() {
+  public create() {
     // Immediately start the preloader scene
-    this.scene.start('PreloaderScene');
+    this.scene.start("PreloaderScene");
   }
 }

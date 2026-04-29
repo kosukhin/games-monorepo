@@ -3,11 +3,12 @@ export type PoseType = 'stand' | 'run' | 'jump';
 export type PointType = [number, number];
 export type EntityType = {
     id: number,
-    type: string,
+    type: EntityTypes,
     position: PointType,
     direction: DirectionType,
     pose: PoseType
 }
+export type EntityTypes = 'player' | 'box';
 
 /**
  * Состояние уровня игры
