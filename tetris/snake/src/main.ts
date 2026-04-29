@@ -27,9 +27,7 @@ const renderUI = (state: {data: SnakeStateType}) => {
   $level.textContent = state.data.get('level').toString();
   $status.textContent = state.data.get('gameStep');
   const gameOverReason = state.data.get('gameOverReason');
-  if (gameOverReason) {
-    $reason.textContent = ` (${gameOverReason})`;
-  }
+  $reason.textContent = gameOverReason ? ` (${gameOverReason})` : '';
   canvasRendering.tick(state.data);
 }
 renderUI(store.getState());
