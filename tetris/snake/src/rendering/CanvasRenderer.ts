@@ -35,6 +35,8 @@ export class CanvasRenderer {
         const posY = y * this.cellSize;
         this.ctx.fillStyle = '#aaaaaa'; // Цвет подсветки
         this.ctx.fillRect(posX, posY, this.cellSize, this.cellSize);
+        this.ctx.strokeStyle = '#bbbbbb';
+        this.ctx.strokeRect(posX, posY, this.cellSize, this.cellSize);
       });
     });
 

@@ -14,15 +14,13 @@ export const store = createStore<{ data: SnakeStateType }>(
 export const dispatchStore = (fn: Function) => {
   store.setState((state: any) => {
     const newData = fn(state.data);
-    return ({ data: newData })
+    return { data: newData };
   });
 };
 
-export const { Command, BatchCommand } = createCommand(
-  (state: any, command: CommandType) => {
-    return state.update('commands', (prev: CommandType[]) => [...prev, command]);
-  },
-);
+export const { Command, BatchCommand } = createCommand((state: any, command: CommandType) => {
+  return state.update('commands', (prev: CommandType[]) => [...prev, command]);
+});
 
 const controlsHandler = ControlAction();
 const actionsListener = Action(
@@ -34,7 +32,7 @@ const actionsListener = Action(
     ['notify', NotifyAction],
   ],
   () => store.getState().data.get('commands'),
-  (state: SnakeStateType) => state.set('commands', [])
+  (state: SnakeStateType) => state.set('commands', []),
 );
 
 store.subscribe(actionsListener);
