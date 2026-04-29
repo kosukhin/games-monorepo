@@ -1,5 +1,6 @@
 import { Pause } from './app/Pause';
 import { Reset } from './app/Reset';
+import type { SnakeStateType } from './app/SnakeState';
 import { Start } from './app/Start';
 import { CanvasRenderer } from './rendering/CanvasRenderer';
 import { dispatch, store } from './store';
@@ -20,7 +21,7 @@ const $level = document.querySelector('#level') as Element;
 const $status = document.querySelector('#status') as Element;
 const $reason = document.querySelector('#reason') as Element;
 const canvasRendering = new CanvasRenderer('canvas');
-store.subscribe(state => {
+const renderUI = (state: {data: SnakeStateType}) => {
   $gameTime.textContent = state.data.get('timeSpentSeconds').toString();
   $direction.textContent = state.data.get('direction');
   $level.textContent = state.data.get('level').toString();
@@ -30,4 +31,6 @@ store.subscribe(state => {
     $reason.textContent = ` (${gameOverReason})`;
   }
   canvasRendering.tick(state.data);
-});
+}
+renderUI(store.getState());
+store.subscribe(renderUI);
