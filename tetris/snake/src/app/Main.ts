@@ -12,7 +12,6 @@ export function Main(state: SnakeStateType) {
     return Command(state, { type: 'stop' });
   }
 
-  console.log('APP: Game loop works!');
   const nextStep = pipe(MoveTail, MoveHead, Collision, Level);
 
   return Command(nextStep(state), {

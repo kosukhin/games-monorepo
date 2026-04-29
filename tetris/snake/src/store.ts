@@ -12,7 +12,10 @@ export const store = createStore<{ data: SnakeStateType }>(
   })) as any,
 );
 export const dispatchStore = (fn: Function) => {
-  store.setState((state: any) => ({ data: fn(state.data) }));
+  store.setState((state: any) => {
+    const newData = fn(state.data);
+    return ({ data: newData })
+  });
 };
 
 export const { Command, BatchCommand } = createCommand(
@@ -31,6 +34,7 @@ const actionsListener = Action(
     ['notify', NotifyAction],
   ],
   () => store.getState().data.get('commands'),
+  (state: SnakeStateType) => state.set('commands', [])
 );
 
 store.subscribe(actionsListener);

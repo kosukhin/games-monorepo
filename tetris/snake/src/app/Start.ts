@@ -21,7 +21,6 @@ export function Start(state: SnakeStateType) {
     });
   }
 
-  console.log('Start');
   return BatchCommand(
     state.withMutations(s => {
       s.set('gameStep', 'running');
