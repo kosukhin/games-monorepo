@@ -4,13 +4,15 @@ export function Tick(state: LayerStateType) {
   const player = state.entities.player;
 
   if (player.collidedWith?.size) {
-    if (player.pose === "run") {
+    if (
+      player.touched.diagram(2) === "down-right" ||
+      player.touched.diagram(2) === "down-left"
+    ) {
       console.log("hit player");
     }
-    if (player.pose === "jump" || player.pose === "stand") {
+    if (player.touched.diagram(3) === "none-none-down") {
       console.log("kill entity");
     }
-    console.log("handdle collision");
     player.collidedWith.clear();
   }
 

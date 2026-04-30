@@ -64,14 +64,11 @@ export function Player(playerId: string, scene: MainScene): PhaserEntityType {
         // Move left/right
         if (cursors.left.isDown) {
           player.body.setVelocityX(-200);
-          playerEntity.pose = "run";
-          playerEntity.direction = "left";
+          playerEntity.pose.push("run");
         } else if (cursors.right.isDown) {
           player.body.setVelocityX(200);
-          playerEntity.pose = "run";
           playerEntity.direction = "right";
         } else {
-          playerEntity.pose = "stand";
           player.body.setVelocityX(0);
         }
 
@@ -80,8 +77,17 @@ export function Player(playerId: string, scene: MainScene): PhaserEntityType {
         if (cursors.up.isDown && onGround) {
           player.body.setVelocityY(-300);
         }
-        if (!onGround) {
-          playerEntity.pose = "jump";
+
+        if (player.body.touching.none) {
+          playerEntity.touched.push("none");
+        } else if (player.body.touching.right) {
+          playerEntity.touched.push("right");
+        } else if (player.body.touching.left) {
+          playerEntity.touched.push("left");
+        } else if (player.body.touching.down) {
+          playerEntity.touched.push("down");
+        } else if (player.body.touching.up) {
+          playerEntity.touched.push("up");
         }
 
         return state;
