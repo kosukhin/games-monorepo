@@ -38,7 +38,7 @@ export function LayerState() {
         id: 3,
         direction: "left",
         pose: "stand",
-        position: [0, 30],
+        position: [300, 30],
         type: "box",
       },
     ] as EntityType[],
