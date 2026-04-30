@@ -39,8 +39,7 @@ export function Player(playerId: string, scene: MainScene): PhaserEntityType {
                   state.entities[playerId].collidedWith &&
                   collided?.countCollision
                 ) {
-                  state.entities[playerId].collidedWith[collidedEntity.id] =
-                    true;
+                  state.entities[playerId].collidedWith.add(collidedEntity.id);
                 }
                 return state;
               });
@@ -84,17 +83,6 @@ export function Player(playerId: string, scene: MainScene): PhaserEntityType {
         if (!onGround) {
           playerEntity.pose = "jump";
         }
-
-        // Check collisions
-        scene.entities.forEach((entity) => {
-          if (entity === player || !playerEntity.collidedWith) {
-            return;
-          }
-          playerEntity.collidedWith[entity.id] = scene.physics.world.overlap(
-            player,
-            entity.phaserObject,
-          );
-        });
 
         return state;
       });

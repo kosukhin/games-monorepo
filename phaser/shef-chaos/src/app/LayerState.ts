@@ -6,7 +6,7 @@ export type EntityType = {
   position: PointType;
   direction: DirectionType;
   pose: PoseType;
-  collidedWith?: Record<string, boolean>;
+  collidedWith?: Set<string>;
   countCollision: boolean;
 };
 export type EntityTypes = "player" | "box" | "ground";
@@ -41,7 +41,7 @@ export function LayerState() {
         direction: "right",
         pose: "stand",
         position: [30, height - 160],
-        collidedWith: {},
+        collidedWith: new Set(),
         countCollision: false,
       },
     } as Record<string, EntityType>,
