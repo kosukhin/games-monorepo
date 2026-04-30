@@ -73,7 +73,6 @@ export function Player(playerId: string, scene: MainScene): PhaserEntityType {
           playerEntity.direction = "right";
         } else {
           playerEntity.pose = "stand";
-          playerEntity.direction = "right";
           player.body.setVelocityX(0);
         }
 
