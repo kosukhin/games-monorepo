@@ -7,6 +7,7 @@ import invariant from "tiny-invariant";
 
 export type PhaserEntityType = {
   type: EntityTypes;
+  phaserObject: any;
   preload?: () => void;
   create?: () => void;
   update?: () => void;
@@ -23,7 +24,7 @@ const typeToFactory: Record<EntityTypes, EntityFactory> = {
 export function EntityTypeFactory(entity: EntityType, scene: MainScene) {
   invariant(
     typeToFactory[entity.type] !== undefined,
-    `Entity with type ${entity.type} unregistered!`,
+    `Entity with type ${entity.type} is unregistered!`,
   );
   return typeToFactory[entity.type](entity, scene);
 }

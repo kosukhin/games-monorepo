@@ -7,6 +7,9 @@ export function Ground(e: EntityType, scene: MainScene): PhaserEntityType {
   let ground: any = null;
   return {
     type: "ground",
+    get phaserObject() {
+      return ground;
+    },
     create() {
       dispatch((state: LayerStateType) => {
         ground = scene.add.rectangle(
