@@ -4,8 +4,9 @@ import {
   EntityTypeFactory,
   PhaserEntityType,
 } from "@/models/EntityTypeFactory";
-import { dispatch } from "@/store";
+import { dispatch, provide } from "@/store";
 import Phaser from "phaser";
+import { CommandType } from "silentium-loop";
 
 export default class MainScene extends Phaser.Scene {
   public entities: PhaserEntityType[] = [];
@@ -18,6 +19,18 @@ export default class MainScene extends Phaser.Scene {
       });
       return state;
     });
+
+    provide([
+      "remove-entity",
+      (action: CommandType) => {
+        const id = action.args?.[0];
+        const object = this.entities.find((e) => e.id === id);
+        if (object) {
+          object.phaserObject.destroy();
+        }
+        return Promise.resolve();
+      },
+    ]);
   }
 
   public preload() {
@@ -39,9 +52,15 @@ export default class MainScene extends Phaser.Scene {
   }
 
   public update() {
-    this.entities.forEach((e) => {
-      e.update?.();
+    dispatch((state: LayerStateType) => {
+      if (state.gameOver) {
+        return state;
+      }
+      this.entities.forEach((e) => {
+        e.update?.();
+      });
+      dispatch(Tick);
+      return state;
     });
-    dispatch(Tick);
   }
 }

@@ -25,6 +25,7 @@ export function LayerState() {
       width: 2400,
       height,
     },
+    gameOver: false,
     entities: {
       ground: {
         type: "ground",
@@ -41,6 +42,24 @@ export function LayerState() {
         touched: new LimitedStack(3, "none"),
         pose: new LimitedStack(4, "stand"),
         position: [300, 30],
+        velocity: [0, 0],
+        countCollision: true,
+      },
+      box2: {
+        type: "box",
+        direction: "none",
+        touched: new LimitedStack(3, "none"),
+        pose: new LimitedStack(4, "stand"),
+        position: [400, 30],
+        velocity: [0, 0],
+        countCollision: true,
+      },
+      box3: {
+        type: "box",
+        direction: "none",
+        touched: new LimitedStack(3, "none"),
+        pose: new LimitedStack(4, "stand"),
+        position: [600, 30],
         velocity: [0, 0],
         countCollision: true,
       },

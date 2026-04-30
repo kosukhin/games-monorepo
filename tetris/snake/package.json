@@ -21,7 +21,7 @@
     "immutable": "^5.1.5",
     "lodash": "^4.18.1",
     "lodash-es": "^4.18.1",
-    "silentium-loop": "^0.0.5",
+    "silentium-loop": "^0.0.6",
     "tiny-invariant": "^1.3.3",
     "zustand": "^5.0.12"
   }
