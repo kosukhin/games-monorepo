@@ -1,19 +1,17 @@
-import { LayerState, LayerStateType } from "@/app/LayerState";
-import { createStore } from "zustand/vanilla";
-import { devtools } from "zustand/middleware";
-import { immer } from "zustand/middleware/immer";
-import { Actions } from "silentium-loop";
 import { TimeoutAction } from "@/actions/TimeoutAction";
+import { LayerState } from "@/app/LayerState";
+import { Actions } from "silentium-loop";
 
-export const store = createStore<{ data: LayerStateType }>(
-  devtools(
-    immer(() => ({
-      data: LayerState(),
-    })),
-  ) as any,
-);
+export const store = {
+  data: LayerState(),
+};
+
+(window as any).store = store;
 
 export const dispatch = Actions(
-  (fn) => store.setState((s) => ({ data: fn(s.data) })),
+  (fn) => {
+    store.data = fn(store.data);
+    return store;
+  },
   [["timeout", TimeoutAction]],
 );

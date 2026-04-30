@@ -13,7 +13,7 @@ export type PhaserEntityType = {
   update?: () => void;
 };
 
-type EntityFactory = (e: EntityType, scene: MainScene) => PhaserEntityType;
+type EntityFactory = (id: string, scene: MainScene) => PhaserEntityType;
 
 const typeToFactory: Record<EntityTypes, EntityFactory> = {
   box: Box,
@@ -21,10 +21,14 @@ const typeToFactory: Record<EntityTypes, EntityFactory> = {
   ground: Ground,
 };
 
-export function EntityTypeFactory(entity: EntityType, scene: MainScene) {
+export function EntityTypeFactory(
+  id: string,
+  entity: EntityType,
+  scene: MainScene,
+) {
   invariant(
     typeToFactory[entity.type] !== undefined,
     `Entity with type ${entity.type} is unregistered!`,
   );
-  return typeToFactory[entity.type](entity, scene);
+  return typeToFactory[entity.type](id, scene);
 }

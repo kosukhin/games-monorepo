@@ -2,7 +2,6 @@ export type DirectionType = "left" | "right" | "none";
 export type PoseType = "stand" | "run" | "jump";
 export type PointType = [number, number];
 export type EntityType = {
-  id: number;
   type: EntityTypes;
   position: PointType;
   direction: DirectionType;
@@ -14,34 +13,32 @@ export type EntityTypes = "player" | "box" | "ground";
  * Состояние уровня игры
  */
 export function LayerState() {
+  const height = 600;
   return {
     world: {
       width: 2400,
-      height: 600,
+      height,
     },
-    player: {
-      id: 1,
-      type: "player",
-      direction: "right",
-      pose: "stand",
-      position: [0, 0],
-    } as EntityType,
-    entities: [
-      {
-        id: 2,
+    entities: {
+      ground: {
         direction: "none",
         pose: "stand",
         position: [0, 0],
         type: "ground",
       },
-      {
-        id: 3,
-        direction: "left",
+      box1: {
+        direction: "none",
         pose: "stand",
         position: [300, 30],
         type: "box",
       },
-    ] as EntityType[],
+      player: {
+        type: "player",
+        direction: "right",
+        pose: "stand",
+        position: [30, height - 160],
+      },
+    } as Record<string, EntityType>,
   };
 }
 

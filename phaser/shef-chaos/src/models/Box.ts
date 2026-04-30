@@ -1,9 +1,9 @@
-import { EntityType, LayerStateType } from "@/app/LayerState";
+import { LayerStateType } from "@/app/LayerState";
 import { PhaserEntityType } from "@/models/EntityTypeFactory";
 import MainScene from "@/scenes/MainScene";
 import { dispatch } from "@/store";
 
-export function Box(e: EntityType, scene: MainScene): PhaserEntityType {
+export function Box(id: string, scene: MainScene): PhaserEntityType {
   let box: any = null;
   return {
     type: "box",
@@ -12,6 +12,7 @@ export function Box(e: EntityType, scene: MainScene): PhaserEntityType {
     },
     create() {
       dispatch((state: LayerStateType) => {
+        const e = state.entities[id];
         const { world } = state;
         const [x] = e.position;
 

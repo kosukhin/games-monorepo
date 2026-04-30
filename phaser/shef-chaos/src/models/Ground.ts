@@ -1,9 +1,9 @@
-import { EntityType, LayerStateType } from "@/app/LayerState";
+import { LayerStateType } from "@/app/LayerState";
 import { PhaserEntityType } from "@/models/EntityTypeFactory";
 import MainScene from "@/scenes/MainScene";
 import { dispatch } from "@/store";
 
-export function Ground(e: EntityType, scene: MainScene): PhaserEntityType {
+export function Ground(id: string, scene: MainScene): PhaserEntityType {
   let ground: any = null;
   return {
     type: "ground",
@@ -20,6 +20,7 @@ export function Ground(e: EntityType, scene: MainScene): PhaserEntityType {
           0x2ecc71,
         );
         scene.physics.add.existing(ground, true);
+        return state;
       });
     },
   };

@@ -13,10 +13,10 @@ export default class MainScene extends Phaser.Scene {
   public constructor() {
     super({ key: "MainScene" });
     dispatch((state: LayerStateType) => {
-      this.entities.push(EntityTypeFactory(state.player, this));
-      state.entities.forEach((entity) => {
-        this.entities.push(EntityTypeFactory(entity, this));
+      Object.entries(state.entities).forEach(([id, entity]) => {
+        this.entities.push(EntityTypeFactory(id, entity, this));
       });
+      return state;
     });
   }
 
@@ -27,9 +27,10 @@ export default class MainScene extends Phaser.Scene {
   }
 
   public create() {
-    dispatch(({ world }: LayerStateType) => {
-      this.physics.world.setBounds(0, 0, world.width, world.height);
-      this.cameras.main.setBounds(0, 0, world.width, world.height);
+    dispatch((state: LayerStateType) => {
+      this.physics.world.setBounds(0, 0, state.world.width, state.world.height);
+      this.cameras.main.setBounds(0, 0, state.world.width, state.world.height);
+      return state;
     });
 
     this.entities.forEach((e) => {
