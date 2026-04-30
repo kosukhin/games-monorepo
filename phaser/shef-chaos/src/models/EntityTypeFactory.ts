@@ -6,6 +6,7 @@ import MainScene from "@/scenes/MainScene";
 import invariant from "tiny-invariant";
 
 export type PhaserEntityType = {
+  id: string;
   type: EntityTypes;
   phaserObject: any;
   preload?: () => void;

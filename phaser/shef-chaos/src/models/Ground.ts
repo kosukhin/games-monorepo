@@ -6,6 +6,7 @@ import { dispatch } from "@/store";
 export function Ground(id: string, scene: MainScene): PhaserEntityType {
   let ground: any = null;
   return {
+    id,
     type: "ground",
     get phaserObject() {
       return ground;

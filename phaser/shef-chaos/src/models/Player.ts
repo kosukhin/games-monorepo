@@ -3,11 +3,12 @@ import { PhaserEntityType } from "@/models/EntityTypeFactory";
 import MainScene from "@/scenes/MainScene";
 import { dispatch } from "@/store";
 
-export function Player(id: string, scene: MainScene): PhaserEntityType {
+export function Player(playerId: string, scene: MainScene): PhaserEntityType {
   let cursors: any = null;
   let player: any = null;
   return {
     type: "player",
+    id: playerId,
     get phaserObject() {
       return player;
     },
@@ -16,19 +17,35 @@ export function Player(id: string, scene: MainScene): PhaserEntityType {
     },
     create() {
       dispatch((state: LayerStateType) => {
-        const entity = state.entities[id];
-        const [x, y] = entity.position;
+        const playerEntity = state.entities[playerId];
+        const [x, y] = playerEntity.position;
         // Player square
         player = scene.add.image(x, y, "player-stand");
         scene.physics.add.existing(player);
         player.body.setCollideWorldBounds(true);
 
         // Collisions
-        Object.values(scene.entities).forEach((entity) => {
-          if (entity.type === "player") {
+        Object.values(scene.entities).forEach((collidedEntity) => {
+          const collided = state.entities[collidedEntity.id];
+          if (collidedEntity.type === "player") {
             return;
           }
-          scene.physics.add.collider(player, entity.phaserObject);
+          scene.physics.add.collider(
+            player,
+            collidedEntity.phaserObject,
+            () => {
+              dispatch((state: LayerStateType) => {
+                if (
+                  state.entities[playerId].collidedWith &&
+                  collided?.countCollision
+                ) {
+                  state.entities[playerId].collidedWith[collidedEntity.id] =
+                    true;
+                }
+                return state;
+              });
+            },
+          );
         });
 
         // Camera follows player
@@ -42,8 +59,8 @@ export function Player(id: string, scene: MainScene): PhaserEntityType {
       if (!player || !cursors) return;
 
       dispatch((state: LayerStateType) => {
-        const playerEntity = state.entities[id];
-        playerEntity.position = [player.x, player.y];
+        const playerEntity = state.entities[playerId];
+        playerEntity.position = [Math.round(player.x), Math.round(player.y)];
 
         // Move left/right
         if (cursors.left.isDown) {
@@ -68,6 +85,17 @@ export function Player(id: string, scene: MainScene): PhaserEntityType {
         if (!onGround) {
           playerEntity.pose = "jump";
         }
+
+        // Check collisions
+        scene.entities.forEach((entity) => {
+          if (entity === player || !playerEntity.collidedWith) {
+            return;
+          }
+          playerEntity.collidedWith[entity.id] = scene.physics.world.overlap(
+            player,
+            entity.phaserObject,
+          );
+        });
 
         return state;
       });

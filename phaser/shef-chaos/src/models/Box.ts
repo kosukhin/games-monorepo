@@ -6,6 +6,7 @@ import { dispatch } from "@/store";
 export function Box(id: string, scene: MainScene): PhaserEntityType {
   let box: any = null;
   return {
+    id,
     type: "box",
     get phaserObject() {
       return box;
@@ -16,10 +17,9 @@ export function Box(id: string, scene: MainScene): PhaserEntityType {
         const { world } = state;
         const [x] = e.position;
 
-        box = scene.physics.add.staticGroup();
         const obstacleY = world.height - 60;
-        const obs = scene.add.rectangle(x, obstacleY, 40, 40, 0x00ff00);
-        scene.physics.add.existing(obs, true);
+        box = scene.add.rectangle(x, obstacleY, 40, 40, 0x00ff00);
+        scene.physics.add.existing(box, true);
 
         return state;
       });
