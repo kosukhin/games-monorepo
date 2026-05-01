@@ -26,7 +26,6 @@ export function Player(playerId: string, scene: MainScene): PhaserEntityType {
 
         // Collisions
         Object.values(scene.entities).forEach((collidedEntity) => {
-          const collided = state.entities[collidedEntity.id];
           if (collidedEntity.type === "player") {
             return;
           }
@@ -35,10 +34,7 @@ export function Player(playerId: string, scene: MainScene): PhaserEntityType {
             collidedEntity.phaserObject,
             () => {
               dispatch((state: LayerStateType) => {
-                if (
-                  state.entities[playerId].collidedWith &&
-                  collided?.countCollision
-                ) {
+                if (state.entities[playerId].collidedWith) {
                   state.entities[playerId].collidedWith.add(collidedEntity.id);
                 }
                 return state;
@@ -64,10 +60,8 @@ export function Player(playerId: string, scene: MainScene): PhaserEntityType {
         // Move left/right
         if (cursors.left.isDown) {
           player.body.setVelocityX(-200);
-          playerEntity.pose.push("run");
         } else if (cursors.right.isDown) {
           player.body.setVelocityX(200);
-          playerEntity.direction = "right";
         } else {
           player.body.setVelocityX(0);
         }
