@@ -16,12 +16,10 @@ export function CollisionWithBox(
     player.touched.diagram(2) === "down-right" ||
     player.touched.diagram(2) === "down-left"
   ) {
-    console.log("hit player");
     state.player.health -= 10;
   }
 
   if (player.touched.diagram(3) === "none-none-down") {
-    console.log("kill entity", collidedId);
     state.player.score += 1;
     return Command(state, {
       type: "remove-entity",

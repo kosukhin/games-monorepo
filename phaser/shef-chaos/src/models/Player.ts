@@ -1,7 +1,7 @@
 import { LayerStateType } from "@/app/LayerState";
 import { PhaserEntityType } from "@/models/EntityTypeFactory";
 import MainScene from "@/scenes/MainScene";
-import { dispatch, store } from "@/store";
+import { dispatch } from "@/store";
 
 export function Player(playerId: string, scene: MainScene): PhaserEntityType {
   let cursors: any = null;
@@ -14,13 +14,18 @@ export function Player(playerId: string, scene: MainScene): PhaserEntityType {
     },
     preload() {
       scene.load.image("player-stand", "assets/player-stand.png");
+      scene.load.spritesheet("player-run", "assets/player-run.png", {
+        frameWidth: 70,
+        frameHeight: 100,
+      });
+      scene.load.image("player-jump", "assets/player-jump.png");
     },
     create() {
       dispatch((state: LayerStateType) => {
         const playerEntity = state.player;
         const [x, y] = playerEntity.position;
         // Player square
-        player = scene.add.image(x, y, "player-stand");
+        player = scene.add.sprite(x, y, "player-stand");
         scene.physics.add.existing(player);
         player.body.setCollideWorldBounds(true);
 
@@ -47,6 +52,18 @@ export function Player(playerId: string, scene: MainScene): PhaserEntityType {
         scene.cameras.main.startFollow(player, true, 0.08, 0.08);
         // Input
         cursors = scene.input.keyboard?.createCursorKeys();
+
+        // Animations
+        scene.anims.create({
+          key: "run",
+          frames: scene.anims.generateFrameNumbers("player-run", {
+            start: 0,
+            end: 5,
+          }),
+          frameRate: 10,
+          repeat: -1, // бесконечно
+        });
+
         return state;
       });
     },
@@ -61,11 +78,15 @@ export function Player(playerId: string, scene: MainScene): PhaserEntityType {
         if (cursors.left.isDown) {
           player.body.setVelocityX(-200);
           player.setFlip(true);
+          player.anims.play("run", true);
         } else if (cursors.right.isDown) {
           player.body.setVelocityX(200);
           player.setFlip(false);
+          player.anims.play("run", true);
         } else {
           player.body.setVelocityX(0);
+          player.anims.stop();
+          player.setTexture("player-stand");
         }
 
         // Jump if on ground
@@ -76,6 +97,8 @@ export function Player(playerId: string, scene: MainScene): PhaserEntityType {
 
         if (player.body.touching.none) {
           playerEntity.touched.push("none");
+          player.anims.stop();
+          player.setTexture("player-jump");
         } else if (player.body.touching.right) {
           playerEntity.touched.push("right");
         } else if (player.body.touching.left) {
