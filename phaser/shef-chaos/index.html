@@ -24,16 +24,42 @@
             color: #fff;
             padding: 20px;
         }
+
+        .game-wrapper {
+            position: relative;
+        }
+
+        .game-over {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, .5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            color: #fff;
+        }
     </style>
 </head>
 
 <body>
-    <div class="information">
-        <div>
-            Health: <span id="health"></span>
+    <div class="game-wrapper">
+        <div class="information">
+            <div>
+                Health: <span id="health"></span>
+            </div>
+            <div>
+                Score: <span id="score"></span>
+            </div>
         </div>
+        <div class="game-over" id="game-over">
+            Game Over
+        </div>
+        <div id="phaser-game"></div>
     </div>
-    <div id="phaser-game"></div>
     <!-- Phaser will be loaded via bundler (Vite) in development/production -->
     <script type="module" src="./src/main.ts"></script>
 </body>

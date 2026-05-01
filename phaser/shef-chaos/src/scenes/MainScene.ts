@@ -13,10 +13,14 @@ export default class MainScene extends Phaser.Scene {
 
   public constructor() {
     super({ key: "MainScene" });
+
     dispatch((state: LayerStateType) => {
       Object.entries(state.entities).forEach(([id, entity]) => {
         this.entities.push(EntityTypeFactory(id, entity, this));
       });
+      this.entities.push(
+        EntityTypeFactory(state.player.type, state.player, this),
+      );
       return state;
     });
 

@@ -24,7 +24,14 @@ window.addEventListener("load", () => {
   new Phaser.Game(config);
 
   const health = document.getElementById("health");
+  const score = document.getElementById("score");
+  const go = document.getElementById("game-over");
+  go!.style.display = "none";
   setInterval(() => {
-    health!.textContent = String(store.data.entities.player.health ?? 0);
-  }, 1000);
+    health!.textContent = String(store.data.player.health ?? 0);
+    score!.textContent = String(store.data.player.score ?? 0);
+    if (store.data.gameOver) {
+      go!.style.display = "flex";
+    }
+  }, 50);
 });

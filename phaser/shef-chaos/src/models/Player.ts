@@ -17,7 +17,7 @@ export function Player(playerId: string, scene: MainScene): PhaserEntityType {
     },
     create() {
       dispatch((state: LayerStateType) => {
-        const playerEntity = state.entities[playerId];
+        const playerEntity = state.player;
         const [x, y] = playerEntity.position;
         // Player square
         player = scene.add.image(x, y, "player-stand");
@@ -34,8 +34,8 @@ export function Player(playerId: string, scene: MainScene): PhaserEntityType {
             collidedEntity.phaserObject,
             () => {
               dispatch((state: LayerStateType) => {
-                if (state.entities[playerId].collidedWith) {
-                  state.entities[playerId].collidedWith.add(collidedEntity.id);
+                if (state.player.collidedWith) {
+                  state.player.collidedWith.add(collidedEntity.id);
                 }
                 return state;
               });
@@ -54,7 +54,7 @@ export function Player(playerId: string, scene: MainScene): PhaserEntityType {
       if (!player || !cursors) return;
 
       dispatch((state: LayerStateType) => {
-        const playerEntity = state.entities[playerId];
+        const playerEntity = state.player;
         playerEntity.position = [Math.round(player.x), Math.round(player.y)];
 
         // Move left/right
