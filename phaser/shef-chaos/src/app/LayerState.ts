@@ -45,6 +45,14 @@ export function LayerState() {
         type: "box",
         position: [600, 30],
       },
+      box4: {
+        type: "box",
+        position: [800, 30],
+      },
+      box5: {
+        type: "box",
+        position: [1000, 70],
+      },
     } as Record<string, EntityType>,
   };
 }

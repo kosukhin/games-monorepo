@@ -1,7 +1,7 @@
 import { LayerStateType } from "@/app/LayerState";
 import { PhaserEntityType } from "@/models/EntityTypeFactory";
 import MainScene from "@/scenes/MainScene";
-import { dispatch } from "@/store";
+import { dispatch, store } from "@/store";
 
 export function Player(playerId: string, scene: MainScene): PhaserEntityType {
   let cursors: any = null;
@@ -60,8 +60,10 @@ export function Player(playerId: string, scene: MainScene): PhaserEntityType {
         // Move left/right
         if (cursors.left.isDown) {
           player.body.setVelocityX(-200);
+          player.setFlip(true);
         } else if (cursors.right.isDown) {
           player.body.setVelocityX(200);
+          player.setFlip(false);
         } else {
           player.body.setVelocityX(0);
         }
