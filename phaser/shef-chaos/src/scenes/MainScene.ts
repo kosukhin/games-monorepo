@@ -38,7 +38,7 @@ export default class MainScene extends Phaser.Scene {
   }
 
   public preload() {
-    this.load.image("background", "assets/background.png");
+    this.load.image("background", "assets/background-small.png");
     this.entities.forEach((e) => {
       e.preload?.();
     });
