@@ -1,7 +1,7 @@
 import { LayerStateType } from "@/app/LayerState";
 import { PhaserEntityType } from "@/models/EntityTypeFactory";
 import MainScene from "@/scenes/MainScene";
-import { dispatch } from "@/store";
+import { dispatch, provide } from "@/store";
 
 export function Player(playerId: string, scene: MainScene): PhaserEntityType {
   let cursors: any = null;
@@ -21,6 +21,22 @@ export function Player(playerId: string, scene: MainScene): PhaserEntityType {
       scene.load.image("player-jump", "assets/player-jump.png");
     },
     create() {
+      provide([
+        "player-blink",
+        () => {
+          scene.tweens.add({
+            targets: player,
+            alpha: 0,
+            duration: 100,
+            yoyo: true,
+            repeat: 5, // мигнет 5 раз
+            onComplete: () => {
+              player.setAlpha(1);
+            },
+          });
+          return Promise.resolve();
+        },
+      ]);
       dispatch((state: LayerStateType) => {
         const playerEntity = state.player;
         const [x, y] = playerEntity.position;

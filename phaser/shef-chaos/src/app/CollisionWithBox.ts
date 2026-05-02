@@ -17,6 +17,9 @@ export function CollisionWithBox(
     player.touched.diagram(2) === "down-left"
   ) {
     state.player.health -= 10;
+    return Command(state, {
+      type: "player-blink",
+    });
   }
 
   if (player.touched.diagram(3) === "none-none-down") {
