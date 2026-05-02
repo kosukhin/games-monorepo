@@ -7,7 +7,7 @@ export type EntityType = {
   type: EntityTypes;
   position: PointType;
 };
-export type EntityTypes = "player" | "box" | "ground";
+export type EntityTypes = "player" | "box" | "ground" | "mud";
 
 /**
  * Состояние уровня игры
@@ -33,25 +33,29 @@ export function LayerState() {
         type: "ground",
         position: [0, 0],
       },
+      mud1: {
+        type: "mud",
+        position: [260, 108],
+      },
       box1: {
         type: "box",
-        position: [300, 30],
+        position: [300, 120],
       },
       box2: {
         type: "box",
-        position: [400, 30],
+        position: [400, 120],
       },
       box3: {
         type: "box",
-        position: [600, 30],
+        position: [600, 120],
       },
       box4: {
         type: "box",
-        position: [800, 30],
+        position: [800, 120],
       },
       box5: {
         type: "box",
-        position: [1000, 70],
+        position: [1000, 120],
       },
     } as Record<string, EntityType>,
   };

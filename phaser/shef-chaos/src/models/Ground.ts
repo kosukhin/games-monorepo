@@ -17,7 +17,7 @@ export function Ground(id: string, scene: MainScene): PhaserEntityType {
           state.world.width / 2,
           state.world.height - 20,
           state.world.width,
-          40,
+          160,
           0x2ecc71,
         );
         scene.physics.add.existing(ground, true);

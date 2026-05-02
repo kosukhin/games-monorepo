@@ -1,38 +1,10 @@
-import { LayerStateType, PlayerType } from "@/app/LayerState";
-import { Command } from "silentium-loop";
+import { LayerStateType } from "@/app/LayerState";
 
-export function CollisionWithBox(
-  state: LayerStateType,
-  collidedId: string,
-  player: PlayerType,
-) {
+export function CollisionWithBox(state: LayerStateType, collidedId: string) {
   const collidedEntity = state.entities[collidedId];
 
   if (collidedEntity.type !== "box") {
     return state;
-  }
-
-  if (
-    player.touched.diagram(2) === "down-right" ||
-    player.touched.diagram(2) === "down-left"
-  ) {
-    state.player.health -= 10;
-    if (state.player.health === 0) {
-      return Command(state, {
-        type: "player-die",
-      });
-    }
-    return Command(state, {
-      type: "player-blink",
-    });
-  }
-
-  if (player.touched.diagram(3) === "none-none-down") {
-    state.player.score += 1;
-    return Command(state, {
-      type: "remove-entity",
-      args: [collidedId],
-    });
   }
 
   return state;
