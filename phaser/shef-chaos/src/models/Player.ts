@@ -14,6 +14,7 @@ export function Player(playerId: string, scene: MainScene): PhaserEntityType {
     },
     preload() {
       scene.load.image("player-stand", "assets/player-stand.png");
+      scene.load.image("player-die", "assets/player-die.png");
       scene.load.spritesheet("player-run", "assets/player-run.png", {
         frameWidth: 70,
         frameHeight: 100,
@@ -34,6 +35,14 @@ export function Player(playerId: string, scene: MainScene): PhaserEntityType {
               player.setAlpha(1);
             },
           });
+          return Promise.resolve();
+        },
+      ]);
+      provide([
+        "player-die",
+        () => {
+          player.anims.stop();
+          player.setTexture("player-die");
           return Promise.resolve();
         },
       ]);
@@ -84,11 +93,22 @@ export function Player(playerId: string, scene: MainScene): PhaserEntityType {
       });
     },
     update() {
-      if (!player || !cursors) return;
+      console.log("update");
+
+      if (!player || !cursors) {
+        player.setTexture("player-die");
+        return;
+      }
 
       dispatch((state: LayerStateType) => {
         const playerEntity = state.player;
         playerEntity.position = [Math.round(player.x), Math.round(player.y)];
+
+        if (state.gameOver) {
+          player.anims.stop();
+          player.setTexture("player-die");
+          return state;
+        }
 
         // Move left/right
         if (cursors.left.isDown) {
