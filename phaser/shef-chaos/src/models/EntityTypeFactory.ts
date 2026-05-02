@@ -13,6 +13,7 @@ export type PhaserEntityType = {
   preload?: () => void;
   create?: () => void;
   update?: () => void;
+  gameOver?: () => void;
 };
 
 type EntityFactory = (id: string, scene: MainScene) => PhaserEntityType;

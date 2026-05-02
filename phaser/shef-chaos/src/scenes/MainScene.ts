@@ -46,19 +46,15 @@ export default class MainScene extends Phaser.Scene {
 
   public create() {
     dispatch((state: LayerStateType) => {
-      this.bg = this.add.tileSprite(
+      const bg = this.add.tileSprite(
         0,
         0,
         state.world.width,
         state.world.height,
         "background",
       );
-
-      // Устанавливаем привязку к левому верхнему углу
-      this.bg.setOrigin(0, 0);
-
-      // Если нужно, чтобы фон был за всеми объектами
-      this.bg.setDepth(-1);
+      bg.setOrigin(0, 0);
+      bg.setDepth(-1);
 
       this.physics.world.setBounds(0, 0, state.world.width, state.world.height);
       this.cameras.main.setBounds(0, 0, state.world.width, state.world.height);
@@ -73,6 +69,9 @@ export default class MainScene extends Phaser.Scene {
   public update() {
     dispatch((state: LayerStateType) => {
       if (state.gameOver) {
+        this.entities.forEach((e) => {
+          e.gameOver?.();
+        });
         return state;
       }
       this.entities.forEach((e) => {

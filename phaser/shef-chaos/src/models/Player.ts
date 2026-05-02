@@ -146,5 +146,9 @@ export function Player(playerId: string, scene: MainScene): PhaserEntityType {
         return state;
       });
     },
+    gameOver() {
+      player.anims.stop();
+      player.setTexture("player-die");
+    },
   };
 }
