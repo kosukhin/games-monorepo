@@ -30,7 +30,7 @@ export function Player(playerId: string, scene: MainScene): PhaserEntityType {
             alpha: 0,
             duration: 100,
             yoyo: true,
-            repeat: 5, // мигнет 5 раз
+            repeat: 3,
             onComplete: () => {
               player.setAlpha(1);
             },
@@ -93,8 +93,6 @@ export function Player(playerId: string, scene: MainScene): PhaserEntityType {
       });
     },
     update() {
-      console.log("update");
-
       if (!player || !cursors) {
         player.setTexture("player-die");
         return;

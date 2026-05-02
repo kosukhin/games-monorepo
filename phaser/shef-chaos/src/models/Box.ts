@@ -11,6 +11,9 @@ export function Box(id: string, scene: MainScene): PhaserEntityType {
     get phaserObject() {
       return box;
     },
+    preload() {
+      scene.load.image("box-skin", "assets/box.png");
+    },
     create() {
       dispatch((state: LayerStateType) => {
         const e = state.entities[id];
@@ -18,7 +21,7 @@ export function Box(id: string, scene: MainScene): PhaserEntityType {
         const [x] = e.position;
 
         const obstacleY = world.height - 60;
-        box = scene.add.rectangle(x, obstacleY, 40, 40, 0x00ff00);
+        box = scene.add.image(x, obstacleY, "box-skin");
         scene.physics.add.existing(box, true);
 
         return state;
