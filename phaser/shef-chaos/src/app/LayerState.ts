@@ -45,6 +45,10 @@ export function LayerState() {
         type: "mud",
         position: [380, 188],
       },
+      [MudId()]: {
+        type: "mud",
+        position: [460, 148],
+      },
       [BoxId()]: {
         type: "box",
         position: [300, 120],

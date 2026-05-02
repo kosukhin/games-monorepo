@@ -30,6 +30,12 @@ export function Tick(state: LayerStateType) {
     player.collidedWith.clear();
   }
 
+  if (player.health === 0) {
+    return Command(state, {
+      type: "player-die",
+    });
+  }
+
   commands.push({
     type: "call",
     args: [],
