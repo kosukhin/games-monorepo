@@ -1,3 +1,4 @@
+import { createId } from "@/app/Id";
 import { LimitedStack } from "@/lib/LimitedStack";
 
 export type DirectionType = "left" | "right" | "none" | "down" | "up";
@@ -8,6 +9,9 @@ export type EntityType = {
   position: PointType;
 };
 export type EntityTypes = "player" | "box" | "ground" | "mud";
+
+const BoxId = createId("box");
+const MudId = createId("mud");
 
 /**
  * Состояние уровня игры
@@ -33,29 +37,45 @@ export function LayerState() {
         type: "ground",
         position: [0, 0],
       },
-      mud1: {
+      [MudId()]: {
         type: "mud",
         position: [260, 108],
       },
-      box1: {
+      [MudId()]: {
+        type: "mud",
+        position: [380, 188],
+      },
+      [BoxId()]: {
         type: "box",
         position: [300, 120],
       },
-      box2: {
+      [BoxId()]: {
         type: "box",
-        position: [400, 120],
+        position: [340, 120],
       },
-      box3: {
+      [BoxId()]: {
         type: "box",
-        position: [600, 120],
+        position: [380, 120],
       },
-      box4: {
+      [BoxId()]: {
         type: "box",
-        position: [800, 120],
+        position: [420, 120],
       },
-      box5: {
+      [BoxId()]: {
         type: "box",
-        position: [1000, 120],
+        position: [460, 120],
+      },
+      [BoxId()]: {
+        type: "box",
+        position: [340, 160],
+      },
+      [BoxId()]: {
+        type: "box",
+        position: [380, 160],
+      },
+      [BoxId()]: {
+        type: "box",
+        position: [420, 160],
       },
     } as Record<string, EntityType>,
   };
