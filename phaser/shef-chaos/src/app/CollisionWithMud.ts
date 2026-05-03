@@ -22,7 +22,7 @@ export function CollisionWithMud(
     });
   }
 
-  if (player.touched.diagram(3) === "none-none-down") {
+  if (player.touched.diagram(2) === "none-down") {
     state.player.score += 1;
     return Command(state, {
       type: "remove-entity",

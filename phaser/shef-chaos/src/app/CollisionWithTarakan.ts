@@ -22,7 +22,7 @@ export function CollisionWithTarakan(
     });
   }
 
-  if (player.touched.diagram(3) === "none-none-down") {
+  if (player.touched.diagram(2) === "none-down") {
     state.player.health -= 20;
     return Command(state, {
       type: "player-blink",
