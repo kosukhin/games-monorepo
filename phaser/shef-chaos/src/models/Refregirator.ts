@@ -3,16 +3,16 @@ import { PhaserEntityType } from "@/models/EntityTypeFactory";
 import MainScene from "@/scenes/MainScene";
 import { dispatch } from "@/store";
 
-export function Mud(id: string, scene: MainScene): PhaserEntityType {
-  let mud: any = null;
+export function Refregirator(id: string, scene: MainScene): PhaserEntityType {
+  let refregirator: any = null;
   return {
     id,
-    type: "mud",
+    type: "refregirator",
     get phaserObject() {
-      return mud;
+      return refregirator;
     },
     preload() {
-      scene.load.image("mud-skin", "assets/trash.png");
+      scene.load.image("refregirator-skin", "assets/refregirator.png");
     },
     create() {
       dispatch((state: LayerStateType) => {
@@ -21,8 +21,8 @@ export function Mud(id: string, scene: MainScene): PhaserEntityType {
         const [x] = e.position;
 
         const obstacleY = world.height - e.position[1];
-        mud = scene.add.image(x, obstacleY, "mud-skin");
-        scene.physics.add.existing(mud, true);
+        refregirator = scene.add.image(x, obstacleY, "refregirator-skin");
+        scene.physics.add.existing(refregirator, true);
 
         return state;
       });

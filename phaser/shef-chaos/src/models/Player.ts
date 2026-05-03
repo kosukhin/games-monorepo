@@ -50,7 +50,8 @@ export function Player(playerId: string, scene: MainScene): PhaserEntityType {
         const playerEntity = state.player;
         const [x, y] = playerEntity.position;
         // Player square
-        player = scene.add.sprite(x, y, "player-stand");
+        player = scene.physics.add.sprite(x, y, "player-stand");
+        // player.setBodySize(38, 100, true);
         scene.physics.add.existing(player);
         player.body.setCollideWorldBounds(true);
 
@@ -126,7 +127,7 @@ export function Player(playerId: string, scene: MainScene): PhaserEntityType {
         // Jump if on ground
         const onGround = player.body.blocked.down || player.body.touching.down;
         if (cursors.up.isDown && onGround) {
-          player.body.setVelocityY(-300);
+          player.body.setVelocityY(-250);
         }
 
         if (player.body.touching.none) {

@@ -8,17 +8,22 @@ export type EntityType = {
   type: EntityTypes;
   position: PointType;
 };
-export type EntityTypes = "player" | "box" | "ground" | "mud";
+export type EntityTypes =
+  | "player"
+  | "box"
+  | "ground"
+  | "mud"
+  | "refregirator"
+  | "tarakan";
 
-const BoxId = createId("box");
-const MudId = createId("mud");
+const id = createId();
 
 /**
  * Состояние уровня игры
  */
 export function LayerState() {
   const height = 600;
-  return {
+  const state = {
     world: {
       width: 2400,
       height,
@@ -32,58 +37,49 @@ export function LayerState() {
       position: [30, height - 160] as PointType,
       collidedWith: new Set(),
     },
-    entities: {
-      ground: {
-        type: "ground",
-        position: [0, 0],
-      },
-      [MudId()]: {
-        type: "mud",
-        position: [260, 108],
-      },
-      [MudId()]: {
-        type: "mud",
-        position: [380, 188],
-      },
-      [MudId()]: {
-        type: "mud",
-        position: [460, 148],
-      },
-      [BoxId()]: {
-        type: "box",
-        position: [300, 120],
-      },
-      [BoxId()]: {
-        type: "box",
-        position: [340, 120],
-      },
-      [BoxId()]: {
-        type: "box",
-        position: [380, 120],
-      },
-      [BoxId()]: {
-        type: "box",
-        position: [420, 120],
-      },
-      [BoxId()]: {
-        type: "box",
-        position: [460, 120],
-      },
-      [BoxId()]: {
-        type: "box",
-        position: [340, 160],
-      },
-      [BoxId()]: {
-        type: "box",
-        position: [380, 160],
-      },
-      [BoxId()]: {
-        type: "box",
-        position: [420, 160],
-      },
-    } as Record<string, EntityType>,
+    entities: {} as Record<string, EntityType>,
   };
+
+  addEntity(state.entities, "ground", 0, 0);
+  addEntity(state.entities, "mud", 260, 120);
+  addEntity(state.entities, "mud", 380, 200);
+  addEntity(state.entities, "mud", 460, 160);
+  addEntity(state.entities, "box", 300, 120);
+  addEntity(state.entities, "box", 340, 120);
+  addEntity(state.entities, "box", 380, 120);
+  addEntity(state.entities, "box", 420, 120);
+  addEntity(state.entities, "box", 460, 120);
+  addEntity(state.entities, "box", 340, 160);
+  addEntity(state.entities, "box", 380, 160);
+  addEntity(state.entities, "box", 420, 160);
+  addEntity(state.entities, "refregirator", 800, 200);
+  addEntity(state.entities, "box", 720, 120);
+  addEntity(state.entities, "box", 720, 160);
+  addEntity(state.entities, "box", 720, 200);
+  addEntity(state.entities, "box", 720, 240);
+  addEntity(state.entities, "box", 680, 120);
+  addEntity(state.entities, "box", 680, 160);
+  addEntity(state.entities, "box", 680, 200);
+  addEntity(state.entities, "box", 640, 120);
+  addEntity(state.entities, "box", 640, 160);
+  addEntity(state.entities, "box", 600, 120);
+  addEntity(state.entities, "mud", 790, 315);
+  addEntity(state.entities, "tarakan", 1090, 120);
+
+  return state;
 }
 
 export type LayerStateType = ReturnType<typeof LayerState>;
 export type PlayerType = LayerStateType["player"];
+
+function addEntity(
+  entities: Record<string, EntityType>,
+  type: EntityTypes,
+  x: number,
+  y: number,
+) {
+  entities[id(type)] = {
+    position: [x, y],
+    type,
+  };
+}
