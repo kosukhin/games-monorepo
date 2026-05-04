@@ -18,14 +18,14 @@ export function CollisionWithTarakan(
   ) {
     state.player.health -= 10;
     return Command(state, {
-      type: "player-blink",
+      type: "player-hit",
     });
   }
 
   if (player.touched.diagram(2) === "none-down") {
     state.player.health -= 20;
     return Command(state, {
-      type: "player-blink",
+      type: "player-hit",
     });
   }
 

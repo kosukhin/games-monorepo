@@ -18,7 +18,7 @@ export function CollisionWithMud(
   ) {
     state.player.health -= 10;
     return Command(state, {
-      type: "player-blink",
+      type: "player-hit",
     });
   }
 

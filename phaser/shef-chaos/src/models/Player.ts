@@ -6,6 +6,7 @@ import { dispatch, provide } from "@/store";
 export function Player(playerId: string, scene: MainScene): PhaserEntityType {
   let cursors: any = null;
   let player: any = null;
+
   return {
     type: "player",
     id: playerId,
@@ -23,7 +24,7 @@ export function Player(playerId: string, scene: MainScene): PhaserEntityType {
     },
     create() {
       provide([
-        "player-blink",
+        "player-hit",
         () => {
           scene.tweens.add({
             targets: player,
@@ -41,11 +42,13 @@ export function Player(playerId: string, scene: MainScene): PhaserEntityType {
       provide([
         "player-die",
         () => {
+          player.body.setSize(100, 60);
           player.anims.stop();
           player.setTexture("player-die");
           return Promise.resolve();
         },
       ]);
+
       dispatch((state: LayerStateType) => {
         const playerEntity = state.player;
         const [x, y] = playerEntity.position;
@@ -54,6 +57,8 @@ export function Player(playerId: string, scene: MainScene): PhaserEntityType {
         // player.setBodySize(38, 100, true);
         scene.physics.add.existing(player);
         player.body.setCollideWorldBounds(true);
+
+        player.body.setSize(21, 100);
 
         // Collisions
         Object.values(scene.entities).forEach((collidedEntity) => {
@@ -144,10 +149,13 @@ export function Player(playerId: string, scene: MainScene): PhaserEntityType {
           playerEntity.touched.push("up");
         }
 
+        player.body.setSize(21, 100);
+
         return state;
       });
     },
     gameOver() {
+      player.body.setSize(100, 40);
       player.anims.stop();
       player.setTexture("player-die");
     },

@@ -30,7 +30,15 @@ export default class MainScene extends Phaser.Scene {
         const id = action.args?.[0];
         const object = this.entities.find((e) => e.id === id);
         if (object) {
-          object.phaserObject.destroy();
+          this.tweens.add({
+            targets: object.phaserObject,
+            alpha: 0,
+            duration: 100,
+            ease: "Power2",
+            onComplete: () => {
+              object.phaserObject.destroy();
+            },
+          });
         }
         return Promise.resolve();
       },
