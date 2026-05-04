@@ -18,6 +18,14 @@ export type EntityTypes =
 
 const id = createId();
 
+type CollisionEvent = {
+  id: string;
+  entityType: EntityTypes;
+  time: number;
+  targetPosition: PointType;
+  entityPosition: PointType;
+};
+
 /**
  * Состояние уровня игры
  */
@@ -35,7 +43,8 @@ export function LayerState() {
       score: 0,
       touched: new LimitedStack(3, "none"),
       position: [30, height - 160] as PointType,
-      collidedWith: new Map<string, number>(),
+      collisionEvents: [] as CollisionEvent[],
+      lastCollision: 0,
     },
     entities: {} as Record<string, EntityType>,
   };

@@ -1,34 +1,33 @@
-import { LayerStateType, PlayerType } from "@/app/LayerState";
-import { Command } from "silentium-loop";
+import { LayerStateType } from "@/app/LayerState";
+import { BatchCommand, CommandType } from "silentium-loop";
 
-export function CollisionWithMud(
-  state: LayerStateType,
-  collidedId: string,
-  player: PlayerType,
-) {
-  const collidedEntity = state.entities[collidedId];
+const lastEventGap = 1000;
 
-  if (collidedEntity.type !== "mud") {
-    return state;
-  }
+export function CollisionWithMud(state: LayerStateType) {
+  const commands: CommandType[] = [];
 
-  if (
-    player.touched.diagram(2) === "down-right" ||
-    player.touched.diagram(2) === "down-left"
-  ) {
-    state.player.health -= 10;
-    return Command(state, {
-      type: "player-hit",
-    });
-  }
+  state.player.collisionEvents.forEach((event) => {
+    const nowGap = state.player.lastCollision + lastEventGap;
+    if (event.entityType !== "mud" || event.time < nowGap) {
+      return;
+    }
 
-  if (player.touched.diagram(2) === "none-down") {
-    state.player.score += 1;
-    return Command(state, {
-      type: "remove-entity",
-      args: [collidedId],
-    });
-  }
+    state.player.lastCollision = event.time;
+    const targetTop = event.targetPosition[1];
+    const entityTop = event.entityPosition[1];
+    if (entityTop >= targetTop) {
+      state.player.score += 1;
+      commands.push({
+        type: "remove-entity",
+        args: [event.id],
+      });
+    } else {
+      state.player.health -= 10;
+      commands.push({
+        type: "player-hit",
+      });
+    }
+  });
 
-  return state;
+  return BatchCommand(state, commands);
 }

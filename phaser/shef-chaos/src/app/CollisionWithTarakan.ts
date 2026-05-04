@@ -1,33 +1,30 @@
-import { LayerStateType, PlayerType } from "@/app/LayerState";
-import { Command } from "silentium-loop";
+import { LayerStateType } from "@/app/LayerState";
+import { BatchCommand, CommandType } from "silentium-loop";
 
-export function CollisionWithTarakan(
-  state: LayerStateType,
-  collidedId: string,
-  player: PlayerType,
-) {
-  const collidedEntity = state.entities[collidedId];
+const lastEventGap = 200;
 
-  if (collidedEntity.type !== "tarakan") {
-    return state;
-  }
+export function CollisionWithTarakan(state: LayerStateType) {
+  const commands: CommandType[] = [];
 
-  if (
-    player.touched.diagram(2) === "down-right" ||
-    player.touched.diagram(2) === "down-left"
-  ) {
-    state.player.health -= 10;
-    return Command(state, {
-      type: "player-hit",
-    });
-  }
+  state.player.collisionEvents.forEach((event) => {
+    const nowGap = state.player.lastCollision + lastEventGap;
+    if (event.entityType !== "tarakan" || event.time < nowGap) {
+      return;
+    }
 
-  if (player.touched.diagram(2) === "none-down") {
-    state.player.health -= 20;
-    return Command(state, {
-      type: "player-hit",
-    });
-  }
+    state.player.lastCollision = event.time;
+    if (event.entityPosition[1] >= event.targetPosition[1]) {
+      state.player.health -= 20;
+      commands.push({
+        type: "player-hit",
+      });
+    } else {
+      state.player.health -= 10;
+      commands.push({
+        type: "player-hit",
+      });
+    }
+  });
 
-  return state;
+  return BatchCommand(state, commands);
 }

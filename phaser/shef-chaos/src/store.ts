@@ -1,4 +1,4 @@
-import { CallAction } from "@/actions/CallAction";
+import { ScheduleAction } from "@/actions/ScheduleAction";
 import { TimeoutAction } from "@/actions/TimeoutAction";
 import { LayerState } from "@/app/LayerState";
 import { Actions, StoreActionProvider } from "silentium-loop";
@@ -12,7 +12,7 @@ export const store = {
 
 const actions: StoreActionProvider[] = [
   ["timeout", TimeoutAction],
-  ["call", CallAction],
+  ["schedule", ScheduleAction],
 ];
 
 export const dispatch = Actions((fn) => {

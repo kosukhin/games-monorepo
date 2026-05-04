@@ -70,12 +70,19 @@ export function Player(playerId: string, scene: MainScene): PhaserEntityType {
             collidedEntity.phaserObject,
             () => {
               dispatch((state: LayerStateType) => {
-                if (
-                  state.player.collidedWith &&
-                  !state.player.collidedWith.has(collidedEntity.id)
-                ) {
-                  state.player.collidedWith.set(collidedEntity.id, Date.now());
+                if (state.gameOver || collidedEntity.type === "ground") {
+                  return state;
                 }
+                state.player.collisionEvents.push({
+                  id: collidedEntity.id,
+                  entityType: collidedEntity.type,
+                  entityPosition: [
+                    collidedEntity.phaserObject.body.x,
+                    collidedEntity.phaserObject.body.top,
+                  ],
+                  targetPosition: [player.body.x, player.body.bottom],
+                  time: Date.now(),
+                });
                 return state;
               });
             },
