@@ -15,7 +15,9 @@ export function Tick(state: LayerStateType) {
   }
 
   if (player.collidedWith.size) {
-    player.collidedWith.forEach((collided) => {
+    const now = Date.now();
+    player.collidedWith.forEach((when, id) => {
+        if 
       commands.push({
         type: "call",
         args: [collided, player],

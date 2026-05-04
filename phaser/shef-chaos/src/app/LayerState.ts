@@ -35,7 +35,7 @@ export function LayerState() {
       score: 0,
       touched: new LimitedStack(3, "none"),
       position: [30, height - 160] as PointType,
-      collidedWith: new Set(),
+      collidedWith: new Map<string, number>(),
     },
     entities: {} as Record<string, EntityType>,
   };

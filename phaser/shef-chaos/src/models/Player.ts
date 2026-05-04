@@ -70,8 +70,11 @@ export function Player(playerId: string, scene: MainScene): PhaserEntityType {
             collidedEntity.phaserObject,
             () => {
               dispatch((state: LayerStateType) => {
-                if (state.player.collidedWith) {
-                  state.player.collidedWith.add(collidedEntity.id);
+                if (
+                  state.player.collidedWith &&
+                  !state.player.collidedWith.has(collidedEntity.id)
+                ) {
+                  state.player.collidedWith.set(collidedEntity.id, Date.now());
                 }
                 return state;
               });
