@@ -3,6 +3,7 @@ import { CollisionWithMud } from "@/app/CollisionWithMud";
 import { CollisionWithTarakan } from "@/app/CollisionWithTarakan";
 import { GameOverGuard } from "@/app/GameOverGuard";
 import { LayerStateType } from "@/app/LayerState";
+import { TarakanMovement } from "@/app/TarakanMovement";
 import { BatchCommand, CommandType } from "silentium-loop";
 
 export function Tick(state: LayerStateType) {
@@ -24,6 +25,10 @@ export function Tick(state: LayerStateType) {
   commands.push({
     type: "schedule",
     next: CollisionsClean,
+  });
+  commands.push({
+    type: "schedule",
+    next: TarakanMovement,
   });
 
   return BatchCommand(state, commands);

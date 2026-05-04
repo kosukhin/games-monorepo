@@ -43,6 +43,16 @@ export default class MainScene extends Phaser.Scene {
         return Promise.resolve();
       },
     ]);
+    provide([
+      "move-entity",
+      (action: CommandType) => {
+        const id = action.args?.[0];
+        const speed = action.args?.[1];
+        const object = this.entities.find((e) => e.id === id);
+        object?.phaserObject.body.setVelocityX(speed);
+        return Promise.resolve();
+      },
+    ]);
   }
 
   public preload() {

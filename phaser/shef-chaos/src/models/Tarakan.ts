@@ -21,8 +21,18 @@ export function Tarakan(id: string, scene: MainScene): PhaserEntityType {
         const [x] = e.position;
 
         const obstacleY = world.height - e.position[1];
-        tarakan = scene.add.image(x, obstacleY, "tarakan-skin");
+        tarakan = scene.physics.add.image(x, obstacleY, "tarakan-skin");
         scene.physics.add.existing(tarakan, true);
+
+        scene.entities.forEach((e) => {
+          if (e.type === "player") {
+            return;
+          }
+          if (e.type === "tarakan") {
+            return;
+          }
+          scene.physics.add.collider(tarakan, e.phaserObject);
+        });
 
         return state;
       });

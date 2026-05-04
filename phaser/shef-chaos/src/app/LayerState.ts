@@ -5,6 +5,7 @@ export type DirectionType = "left" | "right" | "none" | "down" | "up";
 export type PoseType = "stand" | "run" | "jump";
 export type PointType = [number, number];
 export type EntityType = {
+  id: string;
   type: EntityTypes;
   position: PointType;
 };
@@ -87,7 +88,9 @@ function addEntity(
   x: number,
   y: number,
 ) {
-  entities[id(type)] = {
+  const theId = id(type);
+  entities[theId] = {
+    id: theId,
     position: [x, y],
     type,
   };
