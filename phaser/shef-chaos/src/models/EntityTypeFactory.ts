@@ -4,8 +4,10 @@ import { Ground } from "@/models/Ground";
 import { Mud } from "@/models/Mud";
 import { Player } from "@/models/Player";
 import { Refregirator } from "@/models/Refregirator";
+import { Shelf } from "@/models/Shelf";
 import { Tarakan } from "@/models/Tarakan";
 import { TrashCan } from "@/models/TrashCan";
+import { Window } from "@/models/Window";
 import MainScene from "@/scenes/MainScene";
 import invariant from "tiny-invariant";
 
@@ -29,6 +31,8 @@ const typeToFactory: Record<EntityTypes, EntityFactory> = {
   refregirator: Refregirator,
   tarakan: Tarakan,
   mud: Mud,
+  shelf: Shelf,
+  window: Window,
 };
 
 export function EntityTypeFactory(
