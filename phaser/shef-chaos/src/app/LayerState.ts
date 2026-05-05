@@ -15,6 +15,7 @@ export type EntityType = {
 export type EntityTypes =
   | "player"
   | "box"
+  | "mud"
   | "ground"
   | "trash-can"
   | "refregirator"
@@ -57,6 +58,7 @@ export function LayerState() {
   addEntity(state.entities, "trash-can", 260, 120);
   addEntity(state.entities, "trash-can", 380, 200);
   addEntity(state.entities, "trash-can", 460, 160);
+  addEntity(state.entities, "mud", 300, 320);
   addEntity(state.entities, "box", 300, 120);
   addEntity(state.entities, "box", 340, 120);
   addEntity(state.entities, "box", 380, 120);
@@ -65,7 +67,9 @@ export function LayerState() {
   addEntity(state.entities, "box", 340, 160);
   addEntity(state.entities, "box", 380, 160);
   addEntity(state.entities, "box", 420, 160);
+  addEntity(state.entities, "mud", 550, 290);
   addEntity(state.entities, "refregirator", 800, 200);
+  addEntity(state.entities, "mud", 1000, 190);
   addEntity(state.entities, "box", 720, 120);
   addEntity(state.entities, "box", 720, 160);
   addEntity(state.entities, "box", 720, 200);

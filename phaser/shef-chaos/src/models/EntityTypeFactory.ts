@@ -1,6 +1,7 @@
 import { EntityType, EntityTypes } from "@/app/LayerState";
 import { Box } from "@/models/Box";
 import { Ground } from "@/models/Ground";
+import { Mud } from "@/models/Mud";
 import { Player } from "@/models/Player";
 import { Refregirator } from "@/models/Refregirator";
 import { Tarakan } from "@/models/Tarakan";
@@ -27,6 +28,7 @@ const typeToFactory: Record<EntityTypes, EntityFactory> = {
   "trash-can": TrashCan,
   refregirator: Refregirator,
   tarakan: Tarakan,
+  mud: Mud,
 };
 
 export function EntityTypeFactory(
