@@ -1,6 +1,7 @@
 import { EntityType, EntityTypes } from "@/app/LayerState";
 import { Box } from "@/models/Box";
 import { Ground } from "@/models/Ground";
+import { Hood } from "@/models/Hood";
 import { Mud } from "@/models/Mud";
 import { Player } from "@/models/Player";
 import { Refregirator } from "@/models/Refregirator";
@@ -33,6 +34,7 @@ const typeToFactory: Record<EntityTypes, EntityFactory> = {
   mud: Mud,
   shelf: Shelf,
   window: Window,
+  hood: Hood,
 };
 
 export function EntityTypeFactory(

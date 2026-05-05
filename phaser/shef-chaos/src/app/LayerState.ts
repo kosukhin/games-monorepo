@@ -21,7 +21,8 @@ export type EntityTypes =
   | "refregirator"
   | "tarakan"
   | "shelf"
-  | "window";
+  | "window"
+  | "hood";
 
 const id = createId();
 
@@ -49,7 +50,7 @@ export function LayerState() {
       health: 100,
       score: 0,
       touched: new LimitedStack(3, "none"),
-      position: [1330, height - 560] as PointType,
+      position: [30, height - 560] as PointType,
       collisionEvents: [] as CollisionEvent[],
       lastCollision: 0,
     },
@@ -83,12 +84,13 @@ export function LayerState() {
   addEntity(state.entities, "box", 640, 160);
   addEntity(state.entities, "box", 600, 120);
   addEntity(state.entities, "trash-can", 790, 315);
-  addEntity(state.entities, "shelf", 1330, 250);
+  addEntity(state.entities, "shelf", 1330, 270);
   addEntity(state.entities, "shelf", 1530, 168);
   addEntity(state.entities, "shelf", 1570, 210);
   addEntity(state.entities, "shelf", 1590, 260);
   addEntity(state.entities, "shelf", 1450, 292);
-  addEntity(state.entities, "window", 1130, 350);
+  addEntity(state.entities, "hood", 1190, 292);
+  addEntity(state.entities, "window", 1260, 280);
   addEntity(state.entities, "tarakan", 1090, 120);
   addEntity(state.entities, "tarakan", 990, 120);
   addEntity(state.entities, "tarakan", 1190, 120);
