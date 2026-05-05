@@ -1,18 +1,24 @@
-import { LayerStateType } from "@/app/LayerState";
+import { EntityTypes, LayerStateType } from "@/app/LayerState";
 import { PhaserEntityType } from "@/models/EntityTypeFactory";
 import MainScene from "@/scenes/MainScene";
 import { dispatch } from "@/store";
 
-export function Mud(id: string, scene: MainScene): PhaserEntityType {
-  let mud: any = null;
+export function BaseModel(
+  id: string,
+  scene: MainScene,
+  type: EntityTypes,
+  skin: string,
+): PhaserEntityType {
+  let entity: any = null;
+  const skinName = type + "-skin";
   return {
     id,
-    type: "mud",
+    type,
     get phaserObject() {
-      return mud;
+      return entity;
     },
     preload() {
-      scene.load.image("mud-skin", "assets/trash.png");
+      scene.load.image(skinName, skin);
     },
     create() {
       dispatch((state: LayerStateType) => {
@@ -21,8 +27,8 @@ export function Mud(id: string, scene: MainScene): PhaserEntityType {
         const [x] = e.position;
 
         const obstacleY = world.height - e.position[1];
-        mud = scene.add.image(x, obstacleY, "mud-skin");
-        scene.physics.add.existing(mud, true);
+        entity = scene.add.image(x, obstacleY, skinName);
+        scene.physics.add.existing(entity, true);
 
         return state;
       });

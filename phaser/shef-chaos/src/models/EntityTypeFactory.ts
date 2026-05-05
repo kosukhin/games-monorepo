@@ -1,10 +1,10 @@
 import { EntityType, EntityTypes } from "@/app/LayerState";
 import { Box } from "@/models/Box";
 import { Ground } from "@/models/Ground";
-import { Mud } from "@/models/Mud";
 import { Player } from "@/models/Player";
 import { Refregirator } from "@/models/Refregirator";
 import { Tarakan } from "@/models/Tarakan";
+import { TrashCan } from "@/models/TrashCan";
 import MainScene from "@/scenes/MainScene";
 import invariant from "tiny-invariant";
 
@@ -24,7 +24,7 @@ const typeToFactory: Record<EntityTypes, EntityFactory> = {
   box: Box,
   player: Player,
   ground: Ground,
-  mud: Mud,
+  "trash-can": TrashCan,
   refregirator: Refregirator,
   tarakan: Tarakan,
 };

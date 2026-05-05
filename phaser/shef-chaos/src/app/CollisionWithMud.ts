@@ -8,7 +8,7 @@ export function CollisionWithMud(state: LayerStateType) {
 
   state.player.collisionEvents.forEach((event) => {
     const nowGap = state.player.lastCollision + lastEventGap;
-    if (event.entityType !== "mud" || event.time < nowGap) {
+    if (event.entityType !== "trash-can" || event.time < nowGap) {
       return;
     }
 

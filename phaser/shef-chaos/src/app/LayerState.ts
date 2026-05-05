@@ -16,7 +16,7 @@ export type EntityTypes =
   | "player"
   | "box"
   | "ground"
-  | "mud"
+  | "trash-can"
   | "refregirator"
   | "tarakan";
 
@@ -54,9 +54,9 @@ export function LayerState() {
   };
 
   addEntity(state.entities, "ground", 0, 0);
-  addEntity(state.entities, "mud", 260, 120);
-  addEntity(state.entities, "mud", 380, 200);
-  addEntity(state.entities, "mud", 460, 160);
+  addEntity(state.entities, "trash-can", 260, 120);
+  addEntity(state.entities, "trash-can", 380, 200);
+  addEntity(state.entities, "trash-can", 460, 160);
   addEntity(state.entities, "box", 300, 120);
   addEntity(state.entities, "box", 340, 120);
   addEntity(state.entities, "box", 380, 120);
@@ -76,7 +76,7 @@ export function LayerState() {
   addEntity(state.entities, "box", 640, 120);
   addEntity(state.entities, "box", 640, 160);
   addEntity(state.entities, "box", 600, 120);
-  addEntity(state.entities, "mud", 790, 315);
+  addEntity(state.entities, "trash-can", 790, 315);
   addEntity(state.entities, "tarakan", 1090, 120);
   addEntity(state.entities, "tarakan", 990, 120);
   addEntity(state.entities, "tarakan", 1190, 120);
