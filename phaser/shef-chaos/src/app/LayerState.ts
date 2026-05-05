@@ -22,7 +22,8 @@ export type EntityTypes =
   | "tarakan"
   | "shelf"
   | "window"
-  | "hood";
+  | "hood"
+  | "spray";
 
 const id = createId();
 
@@ -90,6 +91,7 @@ export function LayerState() {
   addEntity(state.entities, "shelf", 1590, 260);
   addEntity(state.entities, "shelf", 1450, 292);
   addEntity(state.entities, "hood", 1190, 292);
+  addEntity(state.entities, "spray", 1190, 380);
   addEntity(state.entities, "window", 1260, 280);
   addEntity(state.entities, "tarakan", 1090, 120);
   addEntity(state.entities, "tarakan", 990, 120);

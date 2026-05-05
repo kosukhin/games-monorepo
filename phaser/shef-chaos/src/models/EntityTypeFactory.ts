@@ -6,6 +6,7 @@ import { Mud } from "@/models/Mud";
 import { Player } from "@/models/Player";
 import { Refregirator } from "@/models/Refregirator";
 import { Shelf } from "@/models/Shelf";
+import { Spray } from "@/models/Spray";
 import { Tarakan } from "@/models/Tarakan";
 import { TrashCan } from "@/models/TrashCan";
 import { Window } from "@/models/Window";
@@ -35,6 +36,7 @@ const typeToFactory: Record<EntityTypes, EntityFactory> = {
   shelf: Shelf,
   window: Window,
   hood: Hood,
+  spray: Spray,
 };
 
 export function EntityTypeFactory(

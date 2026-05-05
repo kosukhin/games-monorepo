@@ -1,5 +1,6 @@
 import { CollisionsClean } from "@/app/CollisionsClean";
 import { CollisionWithMud } from "@/app/CollisionWithMud";
+import { CollisionWithSpray } from "@/app/CollisionWithSpray";
 import { CollisionWithTarakan } from "@/app/CollisionWithTarakan";
 import { CollisionWithTrashCan } from "@/app/CollisionWithTrashCan";
 import { GameOverGuard } from "@/app/GameOverGuard";
@@ -13,6 +14,7 @@ export function Tick(state: LayerStateType) {
     { type: "schedule", next: CollisionWithTrashCan },
     { type: "schedule", next: CollisionWithTarakan },
     { type: "schedule", next: CollisionWithMud },
+    { type: "schedule", next: CollisionWithSpray },
     { type: "schedule", next: CollisionsClean },
     { type: "schedule", next: TarakanMovement },
   ]);
