@@ -4,10 +4,13 @@ import { LimitedStack } from "@/lib/LimitedStack";
 export type DirectionType = "left" | "right" | "none" | "down" | "up";
 export type PoseType = "stand" | "run" | "jump";
 export type PointType = [number, number];
+export type EventPositionType = { type: "position"; x: number; y: number };
+export type EventVelocityType = { type: "velocity"; x: number; y: number };
 export type EntityType = {
   id: string;
   type: EntityTypes;
   position: PointType;
+  events: (EventPositionType | EventVelocityType)[];
 };
 export type EntityTypes =
   | "player"
@@ -75,6 +78,9 @@ export function LayerState() {
   addEntity(state.entities, "box", 600, 120);
   addEntity(state.entities, "mud", 790, 315);
   addEntity(state.entities, "tarakan", 1090, 120);
+  addEntity(state.entities, "tarakan", 990, 120);
+  addEntity(state.entities, "tarakan", 1190, 120);
+  addEntity(state.entities, "tarakan", 1290, 120);
 
   return state;
 }
@@ -93,5 +99,6 @@ function addEntity(
     id: theId,
     position: [x, y],
     type,
+    events: [],
   };
 }

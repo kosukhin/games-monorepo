@@ -37,5 +37,26 @@ export function Tarakan(id: string, scene: MainScene): PhaserEntityType {
         return state;
       });
     },
+    update() {
+      dispatch((state: LayerStateType) => {
+        const e = state.entities[id];
+        e.events.push({
+          type: "position",
+          x: tarakan.body.position.x,
+          y: tarakan.body.position.y,
+        });
+        e.events.push({
+          type: "velocity",
+          x: tarakan.body.velocity.x,
+          y: tarakan.body.velocity.y,
+        });
+        if (tarakan.body.velocity.x < 0) {
+          tarakan.setFlip(true);
+        } else {
+          tarakan.setFlip(false);
+        }
+        return state;
+      });
+    },
   };
 }
