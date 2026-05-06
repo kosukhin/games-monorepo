@@ -1,5 +1,4 @@
 import { createId } from "@/app/Id";
-import { LimitedStack } from "@/lib/LimitedStack";
 
 export type DirectionType = "left" | "right" | "none" | "down" | "up";
 export type PoseType = "stand" | "run" | "jump";
@@ -51,7 +50,6 @@ export function LayerState() {
       type: "player" as EntityTypes,
       health: 100,
       score: 0,
-      touched: new LimitedStack(3, "none"),
       position: [30, height - 560] as PointType,
       collisionEvents: [] as CollisionEvent[],
       lastCollision: 0,

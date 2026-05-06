@@ -6,7 +6,8 @@ import { dispatch, provide } from "@/store";
 export function Player(playerId: string, scene: MainScene): PhaserEntityType {
   let cursors: any = null;
   let player: any = null;
-
+  const jumpDelay = 900;
+  let lastJump = Date.now();
   return {
     type: "player",
     id: playerId,
@@ -23,6 +24,20 @@ export function Player(playerId: string, scene: MainScene): PhaserEntityType {
       scene.load.image("player-jump", "assets/player-jump.png");
     },
     create() {
+      provide([
+        "player-scored",
+        () => {
+          scene.tweens.add({
+            targets: player,
+            scaleX: 1.3,
+            scaleY: 1.3,
+            duration: 200,
+            yoyo: true,
+            ease: "Power2",
+          });
+          return Promise.resolve();
+        },
+      ]);
       provide([
         "player-hit",
         () => {
@@ -152,24 +167,19 @@ export function Player(playerId: string, scene: MainScene): PhaserEntityType {
           player.setTexture("player-stand");
         }
 
+        if (player.body.touching.none) {
+          player.anims.stop();
+          player.setTexture("player-jump");
+        }
+
         // Jump if on ground
         const onGround = player.body.blocked.down || player.body.touching.down;
         if (cursors.up.isDown && onGround) {
-          player.body.setVelocityY(-250);
-        }
-
-        if (player.body.touching.none) {
-          playerEntity.touched.push("none");
-          player.anims.stop();
-          player.setTexture("player-jump");
-        } else if (player.body.touching.right) {
-          playerEntity.touched.push("right");
-        } else if (player.body.touching.left) {
-          playerEntity.touched.push("left");
-        } else if (player.body.touching.down) {
-          playerEntity.touched.push("down");
-        } else if (player.body.touching.up) {
-          playerEntity.touched.push("up");
+          const jumpLimit = Date.now() - lastJump;
+          if (jumpLimit > jumpDelay) {
+            player.body.setVelocityY(-250);
+            lastJump = Date.now();
+          }
         }
 
         player.body.setSize(21, 100);
