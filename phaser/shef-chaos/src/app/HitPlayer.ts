@@ -13,6 +13,9 @@ export function HitPlayer(
   if (entityType === "trash-can") {
     damage = 10;
   }
+  if (entityType === "rat") {
+    damage = 20;
+  }
   state.player.health -= damage;
   if (state.player.health < 0) {
     state.player.health = 0;

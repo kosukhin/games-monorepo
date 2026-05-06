@@ -23,7 +23,8 @@ export type EntityTypes =
   | "shelf"
   | "window"
   | "hood"
-  | "spray";
+  | "spray"
+  | "rat";
 
 const id = createId();
 
@@ -50,9 +51,12 @@ export function LayerState() {
       type: "player" as EntityTypes,
       health: 100,
       score: 0,
-      position: [30, height - 560] as PointType,
+      position: [1530, height - 560] as PointType,
       collisionEvents: [] as CollisionEvent[],
       lastCollision: 0,
+      events: [],
+      id: "player",
+      physical: true,
     },
     entities: {} as Record<string, EntityType>,
   };
@@ -61,7 +65,7 @@ export function LayerState() {
   addEntity(state.entities, "trash-can", 260, 120);
   addEntity(state.entities, "trash-can", 380, 200);
   addEntity(state.entities, "trash-can", 460, 160);
-  addEntity(state.entities, "mud", 300, 320, false);
+  addEntity(state.entities, "mud", 300, 320, "ghost");
   addEntity(state.entities, "box", 300, 120);
   addEntity(state.entities, "box", 340, 120);
   addEntity(state.entities, "box", 380, 120);
@@ -70,9 +74,9 @@ export function LayerState() {
   addEntity(state.entities, "box", 340, 160);
   addEntity(state.entities, "box", 380, 160);
   addEntity(state.entities, "box", 420, 160);
-  addEntity(state.entities, "mud", 550, 290, false);
+  addEntity(state.entities, "mud", 550, 290, "ghost");
   addEntity(state.entities, "refregirator", 800, 200);
-  addEntity(state.entities, "mud", 1000, 190, false);
+  addEntity(state.entities, "mud", 1000, 190, "ghost");
   addEntity(state.entities, "box", 720, 120);
   addEntity(state.entities, "box", 720, 160);
   addEntity(state.entities, "box", 720, 200);
@@ -90,7 +94,7 @@ export function LayerState() {
   addEntity(state.entities, "shelf", 1590, 260);
   addEntity(state.entities, "shelf", 1450, 292);
   addEntity(state.entities, "hood", 1190, 292);
-  addEntity(state.entities, "spray", 1190, 380, false);
+  addEntity(state.entities, "spray", 1190, 380, "ghost");
   addEntity(state.entities, "window", 1260, 280);
   addEntity(state.entities, "tarakan", 1090, 120);
   addEntity(state.entities, "tarakan", 990, 120);
@@ -99,19 +103,22 @@ export function LayerState() {
   addEntity(state.entities, "box", 1400, 120);
   addEntity(state.entities, "box", 1440, 120);
   addEntity(state.entities, "box", 1480, 120);
+  addEntity(state.entities, "rat", 1760, 130);
+  addEntity(state.entities, "rat", 1860, 130);
 
   return state;
 }
 
 export type LayerStateType = ReturnType<typeof LayerState>;
 export type PlayerType = LayerStateType["player"];
+export type BodyType = "physical" | "ghost";
 
 function addEntity(
   entities: Record<string, EntityType>,
   type: EntityTypes,
   x: number,
   y: number,
-  physical = true,
+  physical: BodyType = "physical",
 ) {
   const theId = id(type);
   entities[theId] = {
@@ -119,6 +126,6 @@ function addEntity(
     position: [x, y],
     type,
     events: [],
-    physical,
+    physical: physical === "physical",
   };
 }

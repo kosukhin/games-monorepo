@@ -4,6 +4,7 @@ import { Ground } from "@/models/Ground";
 import { Hood } from "@/models/Hood";
 import { Mud } from "@/models/Mud";
 import { Player } from "@/models/Player";
+import { Rat } from "@/models/Rat";
 import { Refregirator } from "@/models/Refregirator";
 import { Shelf } from "@/models/Shelf";
 import { Spray } from "@/models/Spray";
@@ -37,13 +38,10 @@ const typeToFactory: Record<EntityTypes, EntityFactory> = {
   window: Window,
   hood: Hood,
   spray: Spray,
+  rat: Rat,
 };
 
-export function EntityTypeFactory(
-  id: string,
-  entity: EntityType,
-  scene: MainScene,
-) {
+export function createEntity(id: string, entity: EntityType, scene: MainScene) {
   invariant(
     typeToFactory[entity.type] !== undefined,
     `Entity with type ${entity.type} is unregistered!`,

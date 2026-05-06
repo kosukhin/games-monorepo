@@ -1,9 +1,6 @@
-import { LayerStateType } from "@/app/LayerState";
+import { EntityType, LayerStateType } from "@/app/LayerState";
 import { Tick } from "@/app/Tick";
-import {
-  EntityTypeFactory,
-  PhaserEntityType,
-} from "@/models/EntityTypeFactory";
+import { createEntity, PhaserEntityType } from "@/models/createEntity";
 import { dispatch, provide } from "@/store";
 import Phaser from "phaser";
 import { CommandType } from "silentium-loop";
@@ -16,10 +13,10 @@ export default class MainScene extends Phaser.Scene {
 
     dispatch((state: LayerStateType) => {
       Object.entries(state.entities).forEach(([id, entity]) => {
-        this.entities.push(EntityTypeFactory(id, entity, this));
+        this.entities.push(createEntity(id, entity, this));
       });
       this.entities.push(
-        EntityTypeFactory(state.player.type, state.player, this),
+        createEntity(state.player.type, state.player as EntityType, this),
       );
       return state;
     });

@@ -12,6 +12,9 @@ export function ScorePlayer(state: LayerStateType, entityType: EntityTypes) {
   if (entityType === "tarakan") {
     score = 3;
   }
+  if (entityType === "rat") {
+    score = 4;
+  }
   state.player.score += score;
   return Command(state, {
     type: "player-scored",

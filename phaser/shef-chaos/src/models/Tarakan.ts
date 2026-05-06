@@ -1,5 +1,5 @@
 import { LayerStateType } from "@/app/LayerState";
-import { PhaserEntityType } from "@/models/EntityTypeFactory";
+import { PhaserEntityType } from "@/models/createEntity";
 import MainScene from "@/scenes/MainScene";
 import { dispatch } from "@/store";
 
@@ -29,6 +29,9 @@ export function Tarakan(id: string, scene: MainScene): PhaserEntityType {
             return;
           }
           if (e.type === "tarakan") {
+            return;
+          }
+          if (e.type === "rat") {
             return;
           }
           scene.physics.add.collider(tarakan, e.phaserObject);

@@ -1,12 +1,12 @@
 import { LayerStateType } from "@/app/LayerState";
-import { PhaserEntityType } from "@/models/EntityTypeFactory";
+import { PhaserEntityType } from "@/models/createEntity";
 import MainScene from "@/scenes/MainScene";
 import { dispatch, provide } from "@/store";
 
 export function Player(playerId: string, scene: MainScene): PhaserEntityType {
   let cursors: any = null;
   let player: any = null;
-  const jumpDelay = 900;
+  const jumpDelay = 200;
   let lastJump = Date.now();
   return {
     type: "player",
@@ -170,6 +170,7 @@ export function Player(playerId: string, scene: MainScene): PhaserEntityType {
         if (player.body.touching.none) {
           player.anims.stop();
           player.setTexture("player-jump");
+          lastJump = Date.now();
         }
 
         // Jump if on ground
