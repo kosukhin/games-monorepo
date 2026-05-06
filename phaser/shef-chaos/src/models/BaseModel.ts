@@ -8,6 +8,7 @@ export function BaseModel(
   scene: MainScene,
   type: EntityTypes,
   skin: string,
+  physical: boolean = true,
 ): PhaserEntityType {
   let entity: any = null;
   const skinName = type + "-skin";
@@ -28,6 +29,9 @@ export function BaseModel(
 
         const obstacleY = world.height - e.position[1];
         entity = scene.add.image(x, obstacleY, skinName);
+        if (!physical) {
+          entity.body.setAllowGravity(false);
+        }
         scene.physics.add.existing(entity, true);
 
         return state;

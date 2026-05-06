@@ -38,6 +38,9 @@ export function Tarakan(id: string, scene: MainScene): PhaserEntityType {
       });
     },
     update() {
+      if (!tarakan.body) {
+        return;
+      }
       dispatch((state: LayerStateType) => {
         const e = state.entities[id];
         e.events.push({

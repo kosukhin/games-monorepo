@@ -3,7 +3,7 @@ import { resolve } from "path";
 
 export default defineConfig({
   root: ".",
-  base: "/",
+  base: "/static/scripts/games/shef/",
   publicDir: "public",
   build: {
     outDir: "dist",

@@ -65,28 +65,41 @@ export function Player(playerId: string, scene: MainScene): PhaserEntityType {
           if (collidedEntity.type === "player") {
             return;
           }
-          scene.physics.add.collider(
-            player,
-            collidedEntity.phaserObject,
-            () => {
-              dispatch((state: LayerStateType) => {
-                if (state.gameOver || collidedEntity.type === "ground") {
-                  return state;
-                }
-                state.player.collisionEvents.push({
-                  id: collidedEntity.id,
-                  entityType: collidedEntity.type,
-                  entityPosition: [
-                    collidedEntity.phaserObject.body.x,
-                    collidedEntity.phaserObject.body.top,
-                  ],
-                  targetPosition: [player.body.x, player.body.bottom],
-                  time: Date.now(),
-                });
+          const onCollided = () => {
+            dispatch((state: LayerStateType) => {
+              if (state.gameOver || collidedEntity.type === "ground") {
                 return state;
+              }
+              state.player.collisionEvents.push({
+                id: collidedEntity.id,
+                entityType: collidedEntity.type,
+                entityPosition: [
+                  collidedEntity.phaserObject.body.x,
+                  collidedEntity.phaserObject.body.top,
+                ],
+                targetPosition: [player.body.x, player.body.bottom],
+                time: Date.now(),
               });
-            },
-          );
+              return state;
+            });
+          };
+          dispatch((state) => {
+            const entity = state.entities[collidedEntity.id];
+            if (entity.physical) {
+              scene.physics.add.collider(
+                player,
+                collidedEntity.phaserObject,
+                onCollided,
+              );
+            } else {
+              scene.physics.add.overlap(
+                player,
+                collidedEntity.phaserObject,
+                onCollided,
+              );
+            }
+            return state;
+          });
         });
 
         // Camera follows player
