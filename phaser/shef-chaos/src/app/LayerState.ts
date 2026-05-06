@@ -51,7 +51,7 @@ export function LayerState() {
       type: "player" as EntityTypes,
       health: 100,
       score: 0,
-      position: [1530, height - 560] as PointType,
+      position: [30, height - 560] as PointType,
       collisionEvents: [] as CollisionEvent[],
       lastCollision: 0,
       events: [],
