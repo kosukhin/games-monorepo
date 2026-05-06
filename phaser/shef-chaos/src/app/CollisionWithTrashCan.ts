@@ -1,4 +1,6 @@
+import { HitPlayer } from "@/app/HitPlayer";
 import { LayerStateType } from "@/app/LayerState";
+import { ScorePlayer } from "@/app/ScorePlayer";
 import { BatchCommand, CommandType } from "silentium-loop";
 
 const lastEventGap = 500;
@@ -16,15 +18,20 @@ export function CollisionWithTrashCan(state: LayerStateType) {
     const targetTop = event.targetPosition[1];
     const entityTop = event.entityPosition[1];
     if (entityTop >= targetTop) {
-      state.player.score += 1;
+      commands.push({
+        type: "schedule",
+        next: ScorePlayer,
+        args: [event.entityType],
+      });
       commands.push({
         type: "remove-entity",
         args: [event.id],
       });
     } else {
-      state.player.health -= 10;
       commands.push({
-        type: "player-hit",
+        type: "schedule",
+        next: HitPlayer,
+        args: [event.entityType],
       });
     }
   });

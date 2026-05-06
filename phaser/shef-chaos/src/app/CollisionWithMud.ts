@@ -1,4 +1,5 @@
 import { LayerStateType } from "@/app/LayerState";
+import { ScorePlayer } from "@/app/ScorePlayer";
 import { BatchCommand, CommandType } from "silentium-loop";
 
 const lastEventGap = 500;
@@ -12,7 +13,11 @@ export function CollisionWithMud(state: LayerStateType) {
     }
 
     state.player.lastCollision = event.time;
-    state.player.score += 2;
+    commands.push({
+      type: "schedule",
+      next: ScorePlayer,
+      args: [event.entityType],
+    });
     commands.push({
       type: "remove-entity",
       args: [event.id],

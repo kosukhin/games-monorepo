@@ -1,4 +1,5 @@
 import { LayerStateType } from "@/app/LayerState";
+import { ScorePlayer } from "@/app/ScorePlayer";
 import { BatchCommand, CommandType } from "silentium-loop";
 
 const lastEventGap = 500;
@@ -14,7 +15,11 @@ export function CollisionWithSpray(state: LayerStateType) {
     state.player.lastCollision = event.time;
     Object.values(state.entities).forEach((e) => {
       if (e.type === "tarakan") {
-        state.player.score += 2;
+        commands.push({
+          type: "schedule",
+          next: ScorePlayer,
+          args: [e.type],
+        });
         commands.push({
           type: "remove-entity",
           args: [e.id],
