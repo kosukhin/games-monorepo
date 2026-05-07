@@ -44,9 +44,11 @@ export type EntityTypes =
   | "window"
   | "hood"
   | "spray"
-  | "rat";
+  | "rat"
+  | "rat-trap"
+  | "finish";
 
-export type GameStateType = "run" | "game-over" | "pause";
+export type GameStateType = "run" | "game-over" | "game-done" | "pause";
 
 export function LayerState() {
   const height = 600;
@@ -112,6 +114,17 @@ export function LayerState() {
   addEntity(state.entities, "box", 1480, 120);
   addEntity(state.entities, "rat", 1760, 130);
   addEntity(state.entities, "rat", 1860, 130);
+  addEntity(state.entities, "box", 2230, 120);
+  addEntity(state.entities, "box", 2270, 120);
+  addEntity(state.entities, "box", 2270, 160);
+  addEntity(state.entities, "box", 2310, 120);
+  addEntity(state.entities, "box", 2310, 160);
+  addEntity(state.entities, "box", 2350, 120);
+  addEntity(state.entities, "box", 2350, 160);
+  addEntity(state.entities, "box", 2390, 120);
+  addEntity(state.entities, "box", 2390, 160);
+  addEntity(state.entities, "rat-trap", 2230, 150);
+  addEntity(state.entities, "finish", 2350, 230);
 
   return state;
 }
@@ -121,6 +134,8 @@ export type LayerStateType = ReturnType<typeof LayerState>;
 const entityBodies: Record<EntityTypes, BodyType> = {
   spray: "ghost",
   mud: "ghost",
+  finish: "ghost",
+  "rat-trap": "ghost",
   "trash-can": "physical",
   box: "physical",
   ground: "physical",

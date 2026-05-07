@@ -1,5 +1,7 @@
+import { CollisionWithFinish } from "@/app/CollisionWithFinish";
 import { CollisionWithMud } from "@/app/CollisionWithMud";
 import { CollisionWithRat } from "@/app/CollisionWithRat";
+import { CollisionWithRatTrap } from "@/app/CollisionWithRatTrap";
 import { CollisionWithSpray } from "@/app/CollisionWithSpray";
 import { CollisionWithTarakan } from "@/app/CollisionWithTarakan";
 import { CollisionWithTrashCan } from "@/app/CollisionWithTrashCan";
@@ -17,6 +19,8 @@ export function Tick(state: LayerStateType) {
     { type: "schedule", next: CollisionWithRat },
     { type: "schedule", next: CollisionWithMud },
     { type: "schedule", next: CollisionWithSpray },
+    { type: "schedule", next: CollisionWithRatTrap },
+    { type: "schedule", next: CollisionWithFinish },
     { type: "schedule", next: TarakanMovement },
     { type: "schedule", next: RatMovement },
   ]);

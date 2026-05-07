@@ -1,10 +1,12 @@
 import { EntityType, EntityTypes } from "@/app/LayerState";
 import { Box } from "@/models/Box";
+import { Finish } from "@/models/Finish";
 import { Ground } from "@/models/Ground";
 import { Hood } from "@/models/Hood";
 import { Mud } from "@/models/Mud";
 import { Player } from "@/models/Player";
 import { Rat } from "@/models/Rat";
+import { RatTrap } from "@/models/RatTrap";
 import { Refregirator } from "@/models/Refregirator";
 import { Shelf } from "@/models/Shelf";
 import { Spray } from "@/models/Spray";
@@ -39,6 +41,8 @@ const typeToFactory: Record<EntityTypes, EntityFactory> = {
   hood: Hood,
   spray: Spray,
   rat: Rat,
+  "rat-trap": RatTrap,
+  finish: Finish,
 };
 
 export function createEntity(id: string, entity: EntityType, scene: MainScene) {

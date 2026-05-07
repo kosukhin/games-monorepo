@@ -83,10 +83,13 @@ export default class MainScene extends Phaser.Scene {
 
   public update() {
     dispatch((state: LayerStateType) => {
-      if (state.gameOver) {
+      if (state.gameState === "game-over") {
         this.entities.forEach((e) => {
           e.gameOver?.();
         });
+        return state;
+      }
+      if (state.gameState !== "run") {
         return state;
       }
       this.entities.forEach((e) => {

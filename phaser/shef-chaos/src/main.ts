@@ -28,11 +28,16 @@ window.addEventListener("load", () => {
   const score = document.getElementById("score");
   const go = document.getElementById("game-over");
   go!.style.display = "none";
+  const completed = document.getElementById("completed");
+  completed!.style.display = "none";
   setInterval(() => {
     health!.textContent = String(store.data.player.health ?? 0);
     score!.textContent = String(store.data.player.score ?? 0);
     if (store.data.gameState === "game-over") {
       go!.style.display = "flex";
+    }
+    if (store.data.gameState === "game-done") {
+      completed!.style.display = "flex";
     }
   }, 50);
 });

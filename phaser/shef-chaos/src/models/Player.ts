@@ -83,7 +83,7 @@ export function Player(playerId: string, scene: MainScene): PhaserEntityType {
           const onCollided = () => {
             dispatch((state: LayerStateType) => {
               if (
-                state.gameState === "game-over" ||
+                state.gameState !== "run" ||
                 collidedEntity.type === "ground"
               ) {
                 return state;
