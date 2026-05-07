@@ -1,4 +1,3 @@
-import { CollisionsClean } from "@/app/CollisionsClean";
 import { CollisionWithMud } from "@/app/CollisionWithMud";
 import { CollisionWithRat } from "@/app/CollisionWithRat";
 import { CollisionWithSpray } from "@/app/CollisionWithSpray";
@@ -18,7 +17,6 @@ export function Tick(state: LayerStateType) {
     { type: "schedule", next: CollisionWithRat },
     { type: "schedule", next: CollisionWithMud },
     { type: "schedule", next: CollisionWithSpray },
-    { type: "schedule", next: CollisionsClean },
     { type: "schedule", next: TarakanMovement },
     { type: "schedule", next: RatMovement },
   ]);

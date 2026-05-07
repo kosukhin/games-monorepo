@@ -1,3 +1,5 @@
+import { LastCollisionHandled } from "@/app/LastCollisionHandled";
+import { LastCollisionInGap } from "@/app/LastCollisionInGap";
 import { LayerStateType } from "@/app/LayerState";
 import { ScorePlayer } from "@/app/ScorePlayer";
 import { BatchCommand, CommandType } from "silentium-loop";
@@ -6,23 +8,22 @@ const lastEventGap = 500;
 export function CollisionWithMud(state: LayerStateType) {
   const commands: CommandType[] = [];
 
-  state.player.collisionEvents.forEach((event) => {
-    const nowGap = state.player.lastCollision + lastEventGap;
-    if (event.entityType !== "mud" || event.time < nowGap) {
-      return;
-    }
-
-    state.player.lastCollision = event.time;
+  const collision = LastCollisionInGap(state, "mud", lastEventGap);
+  if (collision) {
+    commands.push({
+      type: "schedule",
+      next: LastCollisionHandled,
+    });
     commands.push({
       type: "schedule",
       next: ScorePlayer,
-      args: [event.entityType],
+      args: [collision.entityType],
     });
     commands.push({
       type: "remove-entity",
-      args: [event.id],
+      args: [collision.entityId],
     });
-  });
+  }
 
   return BatchCommand(state, commands);
 }

@@ -31,7 +31,7 @@ window.addEventListener("load", () => {
   setInterval(() => {
     health!.textContent = String(store.data.player.health ?? 0);
     score!.textContent = String(store.data.player.score ?? 0);
-    if (store.data.gameOver) {
+    if (store.data.gameState === "game-over") {
       go!.style.display = "flex";
     }
   }, 50);

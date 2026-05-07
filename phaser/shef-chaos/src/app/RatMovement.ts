@@ -10,8 +10,8 @@ export function RatMovement(state: LayerStateType) {
   const commands: CommandType[] = [];
 
   rats.forEach((t) => {
-    const lastPosition = t.events.find((e) => e.type === "position");
-    const lastVelocity = t.events.find((e) => e.type === "velocity");
+    const lastPosition = t.events.findLast((e) => e.type === "position");
+    const lastVelocity = t.events.findLast((e) => e.type === "velocity");
 
     if (!lastPosition || !lastVelocity) {
       return;

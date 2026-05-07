@@ -82,11 +82,15 @@ export function Player(playerId: string, scene: MainScene): PhaserEntityType {
           }
           const onCollided = () => {
             dispatch((state: LayerStateType) => {
-              if (state.gameOver || collidedEntity.type === "ground") {
+              if (
+                state.gameState === "game-over" ||
+                collidedEntity.type === "ground"
+              ) {
                 return state;
               }
-              state.player.collisionEvents.push({
-                id: collidedEntity.id,
+              state.player.events.push({
+                type: "collision",
+                entityId: collidedEntity.id,
                 entityType: collidedEntity.type,
                 entityPosition: [
                   collidedEntity.phaserObject.body.x,
@@ -98,9 +102,9 @@ export function Player(playerId: string, scene: MainScene): PhaserEntityType {
               return state;
             });
           };
-          dispatch((state) => {
+          dispatch((state: LayerStateType) => {
             const entity = state.entities[collidedEntity.id];
-            if (entity.physical) {
+            if (entity.body === "physical") {
               scene.physics.add.collider(
                 player,
                 collidedEntity.phaserObject,
@@ -146,7 +150,7 @@ export function Player(playerId: string, scene: MainScene): PhaserEntityType {
         const playerEntity = state.player;
         playerEntity.position = [Math.round(player.x), Math.round(player.y)];
 
-        if (state.gameOver) {
+        if (state.gameState === "game-over") {
           player.anims.stop();
           player.setTexture("player-die");
           return state;
